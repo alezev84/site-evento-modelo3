@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Faça sua inscrição no Congresso Nacional de Medicina 2025. Confira valores e condições especiais.">
+  <title>Inscrição - Congresso Médico 2025</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="inscricao.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-content">
+      <div class="header-logo">
+        <img src="https://placehold.co/300x100/2c5aa0/white?text=Logo+Evento" alt="Logo do Evento" class="logo-img">
+      </div>
+      <img src="https://placehold.co/600x300/1e3a5f/white?text=Banner+Evento" alt="Banner do Evento" class="header-image">
+    </div>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="nav-container">
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">☰</button>
+      <ul class="nav-menu" id="navMenu">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="comissoes.html" class="nav-link">Comissões</a></li>
+        <li class="nav-item"><a href="palestrantes.html" class="nav-link">Palestrantes</a></li>
+        <li class="nav-item"><a href="inscricao.html" class="nav-link active">Inscrição</a></li>
+        <li class="nav-item"><a href="trabalhos.html" class="nav-link">Trabalhos Científicos</a></li>
+        <li class="nav-item"><a href="programacao.html" class="nav-link">Programação</a></li>
+        <li class="nav-item"><a href="local.html" class="nav-link">Local</a></li>
+        <li class="nav-item"><a href="agencia.html" class="nav-link">Agência de Viagens</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <span class="hero-badge">✨ Inscrições Abertas</span>
+      <h1>Inscrições</h1>
+      <p>Garanta sua participação no maior evento médico do ano. Escolha o plano ideal para você e aproveite condições especiais de pagamento.</p>
+    </div>
+  </section>
+
+  <!-- PRICING SECTION -->
+  <section class="pricing-section">
+    
+    <div class="section-intro">
+      <h2>Escolha seu Plano</h2>
+      <p>Oferecemos diferentes modalidades de inscrição para atender médicos, residentes, estudantes e outros profissionais da saúde. Confira os valores e benefícios de cada categoria.</p>
+    </div>
+
+    <div class="pricing-grid">
+      
+      <!-- CARD 1: Estudante -->
+      <article class="pricing-card featured">
+        <span class="featured-badge">⭐ Aproveite os valores com desconto ⭐</span>
+        <div class="pricing-header">
+          <div class="pricing-category">Estudante</div>
+          <h3 class="pricing-title">Graduação</h3>
+          <div class="pricing-price">
+            <span class="currency">R$</span>
+            <span class="amount">350</span>
+          </div>
+          <p class="pricing-subtitle">Até 31 de Janeiro</p>
+          <span class="discount-badge">50% OFF</span>
+          <div class="next-increase">⚠️ Próximo lote: +20% em 1º de Fevereiro</div>
+        </div>
+        
+        <ul class="pricing-features">
+          <li>Acesso às sessões e palestras "não patrocinadas"</li>
+          <li>Material impresso do evento</li>
+          <li>Certificado de participação</li>
+          <li>Coffee break</li>
+          <li>Acesso à Feira do Evento</li>
+          <li class="unavailable">Sessões e palestras patrocinadas (Compliance)</li>
+        </ul>
+        
+        <div class="pricing-footer">
+          <a href="#" class="pricing-btn">Inscrever-me Agora</a>
+          <p class="pricing-note">📋 Comprovante de matrícula obrigatório</p>
+        </div>
+      </article>
+
+      <!-- CARD 2: Residente -->
+      <article class="pricing-card featured">
+        <span class="featured-badge">⭐ Aproveite os valores com desconto ⭐</span>
+        
+        <div class="pricing-header">
+          <div class="pricing-category">Residente</div>
+          <h3 class="pricing-title">Residência Médica</h3>
+          <div class="pricing-price">
+            <span class="currency">R$</span>
+            <span class="amount">580</span>
+          </div>
+          <p class="pricing-subtitle">Até 31 de Janeiro</p>
+          <span class="discount-badge">40% OFF</span>
+          <div class="next-increase">⚠️ Próximo lote: +20% em 1º de Fevereiro</div>
+        </div>
+        
+        <ul class="pricing-features">
+          <li>Acesso a todas as sessões e palestras do Evento</li>
+          <li>Material impresso do evento</li>
+          <li>Certificado de participação</li>
+          <li>Coffee break</li>
+          <li>Acesso à Feira do Evento</li>
+        </ul>
+        
+        <div class="pricing-footer">
+          <a href="#" class="pricing-btn">Inscrever-me Agora</a>
+          <p class="pricing-note">📋 Declaração de residência obrigatória</p>
+        </div>
+      </article>
+
+      <!-- CARD 3: Médico -->
+      <article class="pricing-card featured">
+        <span class="featured-badge">⭐ Aproveite os valores com desconto ⭐</span>
+        <div class="pricing-header">
+          <div class="pricing-category">Médico</div>
+          <h3 class="pricing-title">Sócio</h3>
+          <div class="pricing-price">
+            <span class="currency">R$</span>
+            <span class="amount">950</span>
+          </div>
+          <p class="pricing-subtitle">Até 31 de Janeiro</p>
+          <span class="discount-badge">30% OFF</span>
+          <div class="next-increase">⚠️ Próximo lote: +20% em 1º de Fevereiro</div>
+        </div>
+        
+        <ul class="pricing-features">
+          <li>Acesso a todas as sessões e palestras do Evento</li>
+          <li>Material impresso do evento</li>
+          <li>Certificado de participação</li>
+          <li>Coffee break</li>
+          <li>Acesso à Feira do Evento</li>
+        </ul>
+        
+        <div class="pricing-footer">
+          <a href="#" class="pricing-btn">Inscrever-me Agora</a>
+          <p class="pricing-note">🏥 CRM ativo<br>obrigatório</p>
+        </div>
+      </article>
+
+      <!-- CARD 4: Outros Profissionais -->
+      <article class="pricing-card featured">
+        <span class="featured-badge">⭐ Aproveite os valores com desconto ⭐</span>
+        <div class="pricing-header">
+          <div class="pricing-category">Médicos</div>
+          <h3 class="pricing-title">Não Sócios</h3>
+          <div class="pricing-price">
+            <span class="currency">R$</span>
+            <span class="amount">1.280</span>
+          </div>
+          <p class="pricing-subtitle">Até 31 de Janeiro</p>
+          <span class="discount-badge">35% OFF</span>
+          <div class="next-increase">⚠️ Próximo lote: +20% em 1º de Fevereiro</div>
+        </div>
+        
+        <ul class="pricing-features">
+          <li>Acesso a todas as sessões e palestras do Evento</li>
+          <li>Material impresso do evento</li>
+          <li>Certificado de participação</li>
+          <li>Coffee break</li>
+          <li>Acesso à Feira do Evento</li>
+        </ul>
+        
+        <div class="pricing-footer">
+          <a href="#" class="pricing-btn">Inscrever-me Agora</a>
+          <p class="pricing-note">✨ Considere associar-se e aproveitar o desconto nos demais eventos da Sociedade</p>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- INFO BOXES -->
+    <div class="info-boxes">
+      <div class="info-box">
+        <div class="info-box-icon">💳</div>
+        <h3>Formas de Pagamento</h3>
+        <p>Cartão de crédito em até 6x sem juros, PIX com 5% de desconto adicional ou boleto bancário à vista.</p>
+      </div>
+      
+      <div class="info-box">
+        <div class="info-box-icon">🎟️</div>
+        <h3>Grupos</h3>
+        <p>Desconto progressivo para grupos: 10% para 5+ pessoas, 15% para 10+ pessoas. Entre em contato!</p>
+      </div>
+      
+      <div class="info-box">
+        <div class="info-box-icon">⏰</div>
+        <h3>Prazos</h3>
+        <p>Valores promocionais válidos até 31/01/2025. Após essa data, valores sofrerão reajuste de 30%.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- RULES SECTION -->
+  <section class="rules-section">
+    <div class="rules-container">
+      <h2 class="rules-title">Regras e Informações</h2>
+      
+      <div class="accordion">
+        
+        <!-- Accordion Item 1 -->
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span>📋 Documentação Necessária</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p><strong>Para Estudantes:</strong></p>
+              <ul>
+                <li>Comprovante de matrícula válido (semestre atual)</li>
+                <li>Documento de identidade com foto</li>
+                <li>CPF</li>
+              </ul>
+              
+              <p><strong>Para Residentes:</strong></p>
+              <ul>
+                <li>Declaração de residência médica</li>
+                <li>Documento de identidade com foto</li>
+                <li>CPF</li>
+              </ul>
+              
+              <p><strong>Para Médicos:</strong></p>
+              <ul>
+                <li>CRM ativo (qualquer estado)</li>
+                <li>Documento de identidade com foto</li>
+                <li>CPF</li>
+              </ul>
+              
+              <p><strong>Para Outros Profissionais:</strong></p>
+              <ul>
+                <li>Registro profissional ativo (COREN, CRF, CREFITO, etc)</li>
+                <li>Documento de identidade com foto</li>
+                <li>CPF</li>
+              </ul>
+              
+              <p><em>⚠️ A documentação será verificada no credenciamento. Inscrições sem documentação válida não serão efetivadas.</em></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 2 -->
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span>💳 Formas de Pagamento</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p><strong>Cartão de Crédito:</strong></p>
+              <ul>
+                <li>Parcelamento em até 6x sem juros</li>
+                <li>Aceitas: Visa, Mastercard, Elo, Amex, Diners, Hipercard</li>
+                <li>Confirmação imediata</li>
+              </ul>
+              
+              <p><strong>PIX:</strong></p>
+              <ul>
+                <li>5% de desconto adicional sobre o valor total</li>
+                <li>Pagamento à vista</li>
+                <li>Confirmação em até 2 horas úteis</li>
+              </ul>
+              
+              <p><strong>Boleto Bancário:</strong></p>
+              <ul>
+                <li>Pagamento à vista</li>
+                <li>Vencimento em 3 dias úteis após emissão</li>
+                <li>Confirmação em até 3 dias úteis</li>
+              </ul>
+              
+              <p><em>💡 Dica: Pagando via PIX, você economiza ainda mais!</em></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 3 -->
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span>🔄 Política de Cancelamento</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p><strong>Cancelamento e Reembolso:</strong></p>
+              <ul>
+                <li><strong>Até 60 dias antes do evento:</strong> Reembolso de 100% do valor pago</li>
+                <li><strong>Entre 59 e 30 dias antes:</strong> Reembolso de 70% do valor pago</li>
+                <li><strong>Entre 29 e 15 dias antes:</strong> Reembolso de 50% do valor pago</li>
+                <li><strong>Menos de 15 dias antes:</strong> Sem reembolso, mas transferência permitida</li>
+              </ul>
+              
+              <p><strong>Transferência de Inscrição:</strong></p>
+              <ul>
+                <li>Permitida até 48 horas antes do evento</li>
+                <li>Taxa de R$ 50,00 para processamento</li>
+                <li>O novo participante deve apresentar documentação válida</li>
+              </ul>
+              
+              <p><em>⚠️ Solicitações de cancelamento devem ser feitas por e-mail para inscricoes@congressomedico.com.br</em></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 4 -->
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span>🎁 Descontos para Grupos</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p><strong>Descontos Progressivos:</strong></p>
+              <ul>
+                <li><strong>5 a 9 pessoas:</strong> 10% de desconto sobre o valor total</li>
+                <li><strong>10 a 19 pessoas:</strong> 15% de desconto sobre o valor total</li>
+                <li><strong>20 ou mais pessoas:</strong> 20% de desconto + benefícios exclusivos</li>
+              </ul>
+              
+              <p><strong>Como Funciona:</strong></p>
+              <ul>
+                <li>Entre em contato pelo e-mail grupos@congressomedico.com.br</li>
+                <li>Informe a quantidade de participantes e categorias</li>
+                <li>Receba um link exclusivo para inscrição em grupo</li>
+                <li>Todos devem se inscrever através do mesmo link</li>
+              </ul>
+              
+              <p><strong>Benefícios Exclusivos (grupos 20+):</strong></p>
+              <ul>
+                <li>Sala privativa para coffee break</li>
+                <li>Banner da instituição no evento</li>
+                <li>Menção durante cerimônia de abertura</li>
+              </ul>
+              
+              <p><em>💼 Ideal para hospitais, universidades e clínicas!</em></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 5 -->
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span>❓ Perguntas Frequentes</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p><strong>Posso parcelar no boleto?</strong></p>
+              <p>Não, boleto bancário é apenas para pagamento à vista. Para parcelamento, utilize cartão de crédito.</p>
+              
+              <p><strong>O certificado é digital ou impresso?</strong></p>
+              <p>O certificado é digital, disponibilizado 15 dias após o evento através da área do participante no site.</p>
+              
+              <p><strong>Existe estacionamento no local?</strong></p>
+              <p>Sim, o centro de convenções oferece estacionamento mediante taxa adicional. Consulte valores na página Local do Evento.</p>
+              
+              <p><strong>As refeições estão incluídas?</strong></p>
+              <p>Coffee breaks estão inclusos em todas as categorias. Almoço e jantar variam conforme o plano escolhido.</p>
+              
+              <p><strong>Consigo emitir nota fiscal?</strong></p>
+              <p>Sim, a nota fiscal é emitida automaticamente após confirmação do pagamento e enviada por e-mail.</p>
+              
+              <p><strong>Qual o dress code do evento?</strong></p>
+              <p>Business casual. Durante o jantar de confraternização, sugerimos traje social.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Pronto para Participar?</h2>
+      <p>Não perca a oportunidade de fazer parte do maior evento médico do ano. Inscreva-se agora e garanta seu lugar!</p>
+      <div class="cta-buttons">
+        <a href="#" class="cta-btn cta-btn-primary">Fazer Inscrição</a>
+        <a href="#" class="cta-btn cta-btn-secondary">Falar com Suporte</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Congresso Nacional de Medicina. Todos os direitos reservados.</p>
+      <p>Organização: Sociedade Brasileira de Medicina</p>
+      <p>Dúvidas? <a href="mailto:inscricoes@congressomedico.com.br" style="color: white; text-decoration: underline;">inscricoes@congressomedico.com.br</a></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="inscricao.js"></script>
+</body>
+</html>

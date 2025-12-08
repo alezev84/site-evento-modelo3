@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Conheça os palestrantes nacionais e internacionais do Congresso Nacional de Medicina 2025">
+  <title>Palestrantes - Congresso Médico 2025</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="palestrantes.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-content">
+      <div class="header-logo">
+        <img src="https://placehold.co/300x100/2c5aa0/white?text=Logo+Evento" alt="Logo do Evento" class="logo-img">
+      </div>
+      <img src="https://placehold.co/600x300/1e3a5f/white?text=Banner+Evento" alt="Banner do Evento" class="header-image">
+    </div>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="nav-container">
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">☰</button>
+      <ul class="nav-menu" id="navMenu">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="comissoes.html" class="nav-link">Comissões</a></li>
+        <li class="nav-item"><a href="palestrantes.html" class="nav-link active">Palestrantes</a></li>
+        <li class="nav-item"><a href="inscricao.html" class="nav-link">Inscrição</a></li>
+        <li class="nav-item"><a href="trabalhos.html" class="nav-link">Trabalhos Científicos</a></li>
+        <li class="nav-item"><a href="programacao.html" class="nav-link">Programação</a></li>
+        <li class="nav-item"><a href="local.html" class="nav-link">Local</a></li>
+        <li class="nav-item"><a href="agencia.html" class="nav-link">Agência de Viagens</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <h1>Palestrantes</h1>
+      <p>Conheça os renomados especialistas nacionais e internacionais que compartilharão seus conhecimentos e experiências no maior evento médico do ano.</p>
+    </div>
+  </section>
+
+  <!-- FILTERS & SEARCH -->
+  <section class="filters-section">
+    <div class="filters-container">
+      
+      <!-- Search Box -->
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          id="searchInput" 
+          class="search-input" 
+          placeholder="Buscar palestrante..."
+          aria-label="Buscar palestrante"
+        >
+      </div>
+
+      <!-- Filters -->
+      <div class="filter-group" role="group" aria-label="Filtros de especialidade">
+        <button class="filter-btn active" data-filter="todos">Todos</button>
+        <button class="filter-btn" data-filter="Cardiologia">Cardiologia</button>
+        <button class="filter-btn" data-filter="Oncologia">Oncologia</button>
+        <button class="filter-btn" data-filter="Neurologia">Neurologia</button>
+        <button class="filter-btn" data-filter="Mastologia">Mastologia</button>
+        <button class="filter-btn" data-filter="Genética">Genética</button>
+      </div>
+
+      <!-- Results Count -->
+      <div class="results-count" id="resultsCount">
+        Carregando...
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SPEAKERS SECTION -->
+  <section class="speakers-section">
+    
+    <!-- Speakers Grid (populado via JS) -->
+    <div class="speakers-grid" id="speakersGrid">
+      <!-- Cards serão inseridos aqui via JavaScript -->
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" id="pagination" style="display: none;">
+      <button class="pagination-btn" id="firstPageBtn" aria-label="Primeira página">««</button>
+      <button class="pagination-btn" id="prevPageBtn" aria-label="Página anterior">‹</button>
+      
+      <div id="pageNumbers"></div>
+      
+      <button class="pagination-btn" id="nextPageBtn" aria-label="Próxima página">›</button>
+      <button class="pagination-btn" id="lastPageBtn" aria-label="Última página">»»</button>
+      
+      <span class="pagination-info" id="paginationInfo"></span>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Congresso Nacional de Medicina. Todos os direitos reservados.</p>
+      <p>Organização: Sociedade Brasileira de Medicina</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/palestrantes.js"></script>
+</body>
+</html>

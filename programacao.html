@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Confira a programação completa do Congresso Nacional de Medicina 2025">
+  <title>Programação - Congresso Médico 2025</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="programacao.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-content">
+      <div class="header-logo">
+        <img src="https://placehold.co/300x100/2c5aa0/white?text=Logo+Evento" alt="Logo do Evento" class="logo-img">
+      </div>
+      <img src="https://placehold.co/600x300/1e3a5f/white?text=Banner+Evento" alt="Banner do Evento" class="header-image">
+    </div>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="nav-container">
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">☰</button>
+      <ul class="nav-menu" id="navMenu">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="comissoes.html" class="nav-link">Comissões</a></li>
+        <li class="nav-item"><a href="palestrantes.html" class="nav-link">Palestrantes</a></li>
+        <li class="nav-item"><a href="inscricao.html" class="nav-link">Inscrição</a></li>
+        <li class="nav-item"><a href="trabalhos.html" class="nav-link">Trabalhos Científicos</a></li>
+        <li class="nav-item"><a href="programacao.html" class="nav-link active">Programação</a></li>
+        <li class="nav-item"><a href="local.html" class="nav-link">Local</a></li>
+        <li class="nav-item"><a href="agencia.html" class="nav-link">Agência de Viagens</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <h1>Programação Científica</h1>
+      <p>Confira a programação completa do evento com palestras, workshops, mesas redondas e apresentações dos principais especialistas.</p>
+    </div>
+  </section>
+
+  <!-- FILTERS SECTION -->
+  <section class="filters-section">
+    <div class="filters-container">
+      
+      <!-- Search Box -->
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          id="searchInput" 
+          class="search-input" 
+          placeholder="Buscar por tema, palestrante ou sala..."
+          aria-label="Buscar na programação"
+        >
+      </div>
+
+      <!-- Filters -->
+      <div class="filter-groups">
+        
+        <!-- Filtro por Dia -->
+        <div class="filter-group">
+          <label class="filter-label">Dia:</label>
+          <div class="filter-buttons">
+            <button class="day-filter active" data-day="todos">Todos</button>
+            <button class="day-filter" data-day="1">Dia 1</button>
+            <button class="day-filter" data-day="2">Dia 2</button>
+            <button class="day-filter" data-day="3">Dia 3</button>
+          </div>
+        </div>
+
+        <!-- Filtro por Tipo -->
+        <div class="filter-group">
+          <label class="filter-label">Tipo:</label>
+          <div class="filter-buttons">
+            <button class="type-filter active" data-type="todos">Todos</button>
+            <button class="type-filter" data-type="keynote">Magna</button>
+            <button class="type-filter" data-type="roundtable">Mesa Redonda</button>
+            <button class="type-filter" data-type="workshop">Workshop</button>
+            <button class="type-filter" data-type="symposium">Simpósio</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROGRAMACAO SECTION -->
+  <section class="programacao-section">
+    <div id="programacaoGrid" class="programacao-container">
+      <!-- Cards serão inseridos aqui via JavaScript -->
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Congresso Nacional de Medicina. Todos os direitos reservados.</p>
+      <p>Organização: Sociedade Brasileira de Medicina</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/programacao.js"></script>
+</body>
+</html>

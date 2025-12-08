@@ -1,0 +1,712 @@
+/* ===================================
+   PROGRAMACAO PAGE - STYLES
+   =================================== */
+
+/* Importa base styles (se necessário) */
+
+/* ===================================
+   PAGE HERO
+   =================================== */
+.page-hero {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: var(--white);
+  padding: var(--spacing-xl) var(--spacing-sm);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.3;
+}
+
+.page-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.page-hero h1 {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  margin-bottom: var(--spacing-sm);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.page-hero p {
+  font-size: 1.2rem;
+  opacity: 0.95;
+  line-height: 1.6;
+}
+
+/* ===================================
+   FILTERS SECTION
+   =================================== */
+.filters-section {
+  background: var(--white);
+  padding: var(--spacing-lg) var(--spacing-sm);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 60px;
+  z-index: 90;
+}
+
+.filters-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.search-box {
+  max-width: 600px;
+  margin: 0 auto var(--spacing-md);
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 50px;
+  border: 2px solid var(--bg-light);
+  border-radius: 50px;
+  font-size: 1rem;
+  transition: var(--transition-fast);
+  font-family: inherit;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.search-icon {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  pointer-events: none;
+}
+
+.filter-groups {
+  display: flex;
+  gap: var(--spacing-lg);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: var(--spacing-xs);
+  flex-wrap: wrap;
+}
+
+.day-filter,
+.type-filter {
+  padding: var(--spacing-xs) var(--spacing-md);
+  border: 2px solid var(--primary-color);
+  background: var(--white);
+  color: var(--primary-color);
+  border-radius: 50px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: var(--transition-fast);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.day-filter:hover,
+.type-filter:hover {
+  background: var(--bg-light);
+}
+
+.day-filter.active,
+.type-filter.active {
+  background: var(--primary-color);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ===================================
+   PROGRAMACAO SECTION
+   =================================== */
+.programacao-section {
+  padding: var(--spacing-xl) var(--spacing-sm);
+  background: var(--bg-light);
+}
+
+.programacao-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ===================================
+   DAY GROUP
+   =================================== */
+.day-group {
+  margin-bottom: var(--spacing-xl);
+}
+
+.day-title {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 3px solid var(--accent-color);
+}
+
+.sessoes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+/* ===================================
+   SESSAO CARD
+   =================================== */
+.sessao-card {
+  background: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-normal);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.sessao-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.sessao-image-wrapper {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+  background: var(--bg-light);
+}
+
+.sessao-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.sessao-card:hover .sessao-img {
+  transform: scale(1.1);
+}
+
+.sessao-type-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 6px var(--spacing-sm);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--white);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+/* Type badge colors */
+.sessao-type-badge.keynote { background: linear-gradient(135deg, #e91e63, #c2185b); }
+.sessao-type-badge.roundtable { background: linear-gradient(135deg, #2196f3, #1976d2); }
+.sessao-type-badge.symposium { background: linear-gradient(135deg, #9c27b0, #7b1fa2); }
+.sessao-type-badge.workshop { background: linear-gradient(135deg, #ff9800, #f57c00); }
+.sessao-type-badge.conference { background: linear-gradient(135deg, #4caf50, #388e3c); }
+.sessao-type-badge.break { background: linear-gradient(135deg, #607d8b, #455a64); }
+.sessao-type-badge.lunch { background: linear-gradient(135deg, #795548, #5d4037); }
+
+.sessao-content {
+  padding: var(--spacing-md);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.sessao-meta {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.sessao-time,
+.sessao-room {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.sessao-title {
+  font-size: 1.3rem;
+  color: var(--primary-color);
+  font-weight: 700;
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.3;
+}
+
+.sessao-description {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-md);
+  flex: 1;
+}
+
+.sessao-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--bg-light);
+  margin-top: auto;
+}
+
+.sessao-count {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.sessao-btn {
+  background: var(--primary-color);
+  color: var(--white);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.sessao-btn:hover {
+  background: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+/* ===================================
+   MODAL STYLES (Sessão)
+   =================================== */
+.modal-sessao {
+  max-width: 100%;
+}
+
+.modal-header {
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 2px solid var(--bg-light);
+}
+
+.modal-type-badge {
+  display: inline-block;
+  padding: 6px var(--spacing-md);
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--white);
+  margin-bottom: var(--spacing-sm);
+}
+
+.modal-type-badge.keynote { background: linear-gradient(135deg, #e91e63, #c2185b); }
+.modal-type-badge.roundtable { background: linear-gradient(135deg, #2196f3, #1976d2); }
+.modal-type-badge.symposium { background: linear-gradient(135deg, #9c27b0, #7b1fa2); }
+.modal-type-badge.workshop { background: linear-gradient(135deg, #ff9800, #f57c00); }
+.modal-type-badge.conference { background: linear-gradient(135deg, #4caf50, #388e3c); }
+
+.modal-title {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.3;
+}
+
+.modal-meta {
+  display: flex;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-sm);
+  font-size: 0.95rem;
+  color: var(--text-light);
+}
+
+.modal-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.modal-description {
+  font-size: 1.05rem;
+  color: var(--text-light);
+  line-height: 1.8;
+  margin-top: var(--spacing-sm);
+}
+
+.modal-section {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 2px solid var(--bg-light);
+}
+
+.modal-section-title {
+  font-size: 1.4rem;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-md);
+  font-weight: 600;
+}
+
+/* ===================================
+   MODAL - Pessoas Grid (Moderadores, Debatedores)
+   =================================== */
+.modal-pessoas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.modal-pessoa-card {
+  background: var(--bg-light);
+  border-radius: 12px;
+  padding: var(--spacing-md);
+  text-align: center;
+  transition: var(--transition-fast);
+}
+
+.modal-pessoa-card:hover {
+  background: #e8f4f8;
+  transform: translateY(-4px);
+}
+
+.modal-pessoa-foto {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto var(--spacing-sm);
+  border: 3px solid var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.modal-pessoa-nome {
+  font-size: 1rem;
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.modal-pessoa-instituicao {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.4;
+}
+
+.modal-pessoa-btn {
+  background: var(--accent-color);
+  color: var(--white);
+  border: none;
+  padding: 6px var(--spacing-sm);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.modal-pessoa-btn:hover {
+  background: var(--primary-color);
+  transform: scale(1.05);
+}
+
+/* ===================================
+   MODAL - Aulas/Apresentações
+   =================================== */
+.modal-aulas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.modal-aula-item {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--bg-light);
+  border-radius: 12px;
+  border-left: 4px solid var(--accent-color);
+  transition: var(--transition-fast);
+}
+
+.modal-aula-item:hover {
+  background: #e8f4f8;
+  border-left-color: var(--primary-color);
+}
+
+.modal-aula-time {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  border-radius: 8px;
+  padding: var(--spacing-sm);
+  font-weight: 600;
+  color: var(--primary-color);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.modal-aula-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.modal-aula-titulo {
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.modal-aula-palestrante {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding-top: var(--spacing-xs);
+}
+
+.modal-aula-foto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.modal-aula-nome {
+  flex: 1;
+  font-size: 0.95rem;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.modal-aula-btn {
+  background: var(--primary-color);
+  color: var(--white);
+  border: none;
+  padding: 6px var(--spacing-sm);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  white-space: nowrap;
+}
+
+.modal-aula-btn:hover {
+  background: var(--secondary-color);
+  transform: scale(1.05);
+}
+
+/* ===================================
+   MODAL - Palestrante (Bio completa)
+   =================================== */
+.modal-palestrante {
+  max-width: 100%;
+}
+
+.modal-palestrante-header {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 2px solid var(--bg-light);
+}
+
+.modal-palestrante-foto {
+  width: 200px;
+  height: 250px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: var(--shadow-md);
+}
+
+.modal-palestrante-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.modal-palestrante-nome {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--primary-color);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.modal-palestrante-instituicao {
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  font-weight: 600;
+  margin: 0;
+}
+
+.modal-palestrante-especialidade {
+  display: inline-block;
+  background: var(--accent-color);
+  color: var(--white);
+  padding: 6px var(--spacing-md);
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+.modal-palestrante-local {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.modal-palestrante-body h3 {
+  font-size: 1.4rem;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-md);
+}
+
+.modal-palestrante-cv {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+/* ===================================
+   RESPONSIVE
+   =================================== */
+@media (max-width: 768px) {
+  .page-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .page-hero p {
+    font-size: 1rem;
+  }
+  
+  .filters-section {
+    position: static;
+  }
+  
+  .search-box {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .filter-groups {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-md);
+  }
+  
+  .filter-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .filter-buttons {
+    width: 100%;
+  }
+  
+  .day-filter,
+  .type-filter {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .sessoes-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  
+  .day-title {
+    font-size: 1.6rem;
+  }
+  
+  .modal-title {
+    font-size: 1.5rem;
+  }
+  
+  .modal-pessoas-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal-aula-item {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal-aula-time {
+    justify-content: flex-start;
+  }
+  
+  .modal-palestrante-header {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal-palestrante-foto {
+    width: 100%;
+    max-width: 250px;
+    margin: 0 auto;
+  }
+  
+  .modal-palestrante-nome {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sessao-title {
+    font-size: 1.1rem;
+  }
+  
+  .modal-palestrante-nome {
+    font-size: 1.4rem;
+  }
+}
