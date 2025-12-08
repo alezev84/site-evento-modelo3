@@ -1,0 +1,207 @@
+{
+  "ultima_atualizacao": "08/12/2024 15:30",
+  "dias": [
+    {
+      "numero": 1,
+      "data": "01/10",
+      "data_completa": "01/10/2025",
+      "layout": "list",
+      "sessoes": [
+        {
+          "id": "d1_s1",
+          "codigo_atividade": "1",
+          "tipo": "workshop",
+          "horario_inicio": "14:00",
+          "horario_fim": "16:00",
+          "sala": "Curso Pré-Jornada Online - Alto Risco",
+          "grade": "Alto Risco",
+          "titulo": "Manejo Atual da Mulher com Alto Risco para Câncer de Mama",
+          "descricao": "Abordagem completa sobre rastreamento, genética e condutas cirúrgicas em pacientes de alto risco.",
+          "tipo_original": "Mesa",
+          "modalidade": "Online",
+          "moderadores": [
+            {
+              "palestrante_id": "p236",
+              "nome": "Cesar Cabello dos Santos",
+              "foto": "https://audi.iweventos.com.br/upload/perfil/15491.jpg"
+            }
+          ],
+          "debatedores": [
+            {
+              "palestrante_id": "p308",
+              "nome": "Paula Tambellini",
+              "foto": "https://audi.iweventos.com.br/upload/perfil/15563.jpeg",
+              "instituicao": "Hospital Sírio-Libanês"
+            },
+            {
+              "palestrante_id": "p336",
+              "nome": "Thamyse Fernanda de Sa Dassie",
+              "foto": "https://audi.iweventos.com.br/upload/perfil/15591.jpeg",
+              "instituicao": "SBM"
+            }
+          ],
+          "nucleo_jovem": [
+            {
+              "palestrante_id": "p600",
+              "nome": "Tais Chebat Watanabe",
+              "foto": "https://audi.iweventos.com.br/upload/perfil/16206.jpeg"
+            }
+          ],
+          "aulas": [
+            {
+              "codigo_subatividade": "1594",
+              "horario_inicio": "14:00",
+              "horario_fim": "14:15",
+              "titulo": "Cirurgia redutora de risco: critérios para a tomada de decisão",
+              "palestrante_id": "p518",
+              "palestrante_nome": "Luciana Zapata",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/16001.jpeg"
+            },
+            {
+              "codigo_subatividade": "1595",
+              "horario_inicio": "14:15",
+              "horario_fim": "14:30",
+              "titulo": "Painéis multigênicos além de BRCA: como interpretar e aplicar os resultados na prática clínica",
+              "palestrante_id": "p299",
+              "palestrante_nome": "Maria Isabel Achatz",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15554.jpeg"
+            },
+            {
+              "codigo_subatividade": "1596",
+              "horario_inicio": "14:30",
+              "horario_fim": "14:45",
+              "titulo": "Risco familiar sem mutação: aplicabilidade dos painéis poligênicos",
+              "palestrante_id": "p278",
+              "palestrante_nome": "Jose Claudio Casali da Rocha",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15533.jpeg"
+            },
+            {
+              "codigo_subatividade": "1597",
+              "horario_inicio": "14:45",
+              "horario_fim": "15:00",
+              "titulo": "Rastreamento personalizado em pacientes de alto risco: quando e como monitorar?",
+              "palestrante_id": "p261",
+              "palestrante_nome": "Giovanna Azevedo Gabriele Carlos",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15516.jpeg"
+            },
+            {
+              "codigo_subatividade": "1598",
+              "horario_inicio": "15:00",
+              "horario_fim": "15:15",
+              "titulo": "Modelos de predição de risco: validação, limitações e perspectivas na prática clínica",
+              "palestrante_id": "p511",
+              "palestrante_nome": "Pablo de Nicola",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15973.jpeg"
+            },
+            {
+              "codigo_subatividade": "1599",
+              "horario_inicio": "15:15",
+              "horario_fim": "15:30",
+              "titulo": "Abordagens não cirúrgicas para redução de risco: evidências e controvérsias atuais",
+              "palestrante_id": "p315",
+              "palestrante_nome": "Rebeca Neves Heinzen",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15570.jpeg"
+            }
+          ]
+        },
+        {
+          "id": "d1_s2",
+          "codigo_atividade": "2",
+          "tipo": "workshop",
+          "horario_inicio": "16:00",
+          "horario_fim": "18:00",
+          "sala": "Curso Pré-Jornada Online - Alto Risco",
+          "grade": "Alto Risco",
+          "titulo": "Situações Especiais em Mastologia",
+          "descricao": "Discussão de casos especiais: pacientes jovens, idosas, gestantes, população LGBTQIA+ e outros cenários desafiadores.",
+          "tipo_original": "Mesa",
+          "modalidade": "Online",
+          "moderadores": [
+            {
+              "palestrante_id": "p762",
+              "nome": "Beatriz Baaklini Geronymo",
+              "foto": "https://audi.iweventos.com.br/upload/perfil/16371.JPEG"
+            }
+          ],
+          "debatedores": [
+            {
+              "palestrante_id": "p301",
+              "nome": "Mariana Burity Xavier",
+              "foto": "https://audi.iweventos.com.br/upload/perfil/15556.png",
+              "instituicao": "Real Hospital Português"
+            },
+            {
+              "palestrante_id": "p314",
+              "nome": "Rafaela Cecilio Sahium",
+              "foto": "https://audi.iweventos.com.br/upload/perfil/15569.jpg",
+              "instituicao": "Hospital Alemão Oswaldo Cruz"
+            }
+          ],
+          "nucleo_jovem": [
+            {
+              "palestrante_id": "p600",
+              "nome": "Tais Chebat Watanabe",
+              "foto": "https://audi.iweventos.com.br/upload/perfil/16206.jpeg"
+            }
+          ],
+          "aulas": [
+            {
+              "codigo_subatividade": "1601",
+              "horario_inicio": "16:00",
+              "horario_fim": "16:15",
+              "titulo": "Câncer de mama na gestação: condutas seguras e atualizações terapêuticas",
+              "palestrante_id": "p357",
+              "palestrante_nome": "Laura Testa",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15612.jpeg"
+            },
+            {
+              "codigo_subatividade": "1602",
+              "horario_inicio": "16:15",
+              "horario_fim": "16:30",
+              "titulo": "Câncer de mama em homens: diagnóstico, tratamento e particularidades",
+              "palestrante_id": "p255",
+              "palestrante_nome": "Fernando Schuh",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15510.jpg"
+            },
+            {
+              "codigo_subatividade": "1603",
+              "horario_inicio": "16:30",
+              "horario_fim": "16:45",
+              "titulo": "Câncer de mama em idosas: descalonamento terapêutico e individualização de conduta",
+              "palestrante_id": "p252",
+              "palestrante_nome": "Felipe Andrade",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15507.jpeg"
+            },
+            {
+              "codigo_subatividade": "1604",
+              "horario_inicio": "16:45",
+              "horario_fim": "17:00",
+              "titulo": "População LGBTQIA+: adaptações no rastreamento, abordagem clínica e acolhimento",
+              "palestrante_id": "p286",
+              "palestrante_nome": "Juliana Zabukas de Andrade",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15541.png"
+            },
+            {
+              "codigo_subatividade": "1605",
+              "horario_inicio": "17:00",
+              "horario_fim": "17:15",
+              "titulo": "Paciente jovem sem mutação: decisão terapêutica entre prudência e agressividade",
+              "palestrante_id": "p208",
+              "palestrante_nome": "Adriana Akemi Yoshimura",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15463.jpg"
+            },
+            {
+              "codigo_subatividade": "1606",
+              "horario_inicio": "17:15",
+              "horario_fim": "17:30",
+              "titulo": "Amamentação após o câncer de mama: evidências e orientações práticas",
+              "palestrante_id": "p304",
+              "palestrante_nome": "Mayka Volpato dos Santos",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15559.jpeg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
