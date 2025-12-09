@@ -8,7 +8,7 @@ async function carregarPalestrantes() {
     if (!container) return;
 
     try {
-        const response = await fetch('./palestrantes.json');
+        const response = await fetch('data/palestrantes.json');
         const palestrantes = await response.json();
 
         container.innerHTML = '';
