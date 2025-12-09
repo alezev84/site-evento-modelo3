@@ -724,3 +724,13 @@ button {
     padding: 0 var(--spacing-xs);
   }
 }
+
+#modal-speaker-detail {
+    z-index: 2000 !important;
+    background-color: rgba(0, 0, 0, 0.6); /* Um pouco mais escuro para diferenciar */
+}
+
+/* O modal de sessão deve ter um z-index menor */
+#modal-schedule {
+    z-index: 1000;
+}
