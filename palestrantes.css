@@ -142,8 +142,7 @@ button {
 
 .nav-link {
   display: block;
-  padding: var(--spacing-sm) var(--spacing-md);
-  color: var(--text-dark);
+  padding: 5px 10px;  color: var(--text-dark);
   font-weight: 500;
   transition: var(--transition-fast);
 }
@@ -235,7 +234,7 @@ button {
   background: var(--white);
   padding: var(--spacing-lg) var(--spacing-sm);
   box-shadow: var(--shadow-sm);
-  position: sticky;
+  /* position: sticky; */
   top: 60px;
   z-index: 90;
 }
@@ -331,7 +330,7 @@ button {
 
 .speakers-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: var(--spacing-lg);
   margin-top: var(--spacing-lg);
 }
@@ -346,7 +345,7 @@ button {
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   transition: var(--transition-normal);
-  height: 400px;
+  height: 300px;
   cursor: pointer;
 }
 
@@ -366,6 +365,7 @@ button {
   height: 100%;
   object-fit: cover;
   transition: transform var(--transition-slow);
+  object-position: top;
 }
 
 .speaker-card:hover .speaker-img {
@@ -647,8 +647,8 @@ button {
   }
   
   .nav-link {
-    padding: var(--spacing-md);
-    border-bottom: 1px solid var(--bg-light);
+     padding: 5px;
+     border-bottom: 1px solid var(--bg-light);
   }
   
   /* Hero */
@@ -683,7 +683,7 @@ button {
   }
   
   .speaker-card {
-    height: 400px;
+    height: 300px;
   }
   
   .pagination {
@@ -748,7 +748,7 @@ button {
   }
   
   .speaker-card {
-    height: 380px;
+    height: 280px;
   }
   
   .modal-palestrante-nome {
@@ -794,3 +794,4 @@ button {
     transition-duration: 0.01ms !important;
   }
 }
+
