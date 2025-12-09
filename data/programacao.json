@@ -1,265 +1,207 @@
 {
-  "ultima_atualizacao": "09/12/2025 03:48",
-  "palestrantes": [
+  "ultima_atualizacao": "08/12/2024 15:30",
+  "dias": [
     {
-      "id": "p236",
-      "codigo": "236",
-      "nome": "René Cordeiro",
-      "cidade": "São Paulo",
-      "estado": "SP",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/men/1.jpg",
-      "instituicao": "Hospital do Câncer",
-      "especialidade": "Mastologia",
-      "mini_cv": "Chefe do Serviço de Mastologia do Hospital do Câncer.",
-      "curriculo_completo": "Chefe do Serviço de Mastologia do Hospital do Câncer; Professor Livre Docente pela FMUSP."
-    },
-    {
-      "id": "p261",
-      "codigo": "261",
-      "nome": "Luiz Henrique Gebrim",
-      "cidade": "São Paulo",
-      "estado": "SP",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/men/2.jpg",
-      "instituicao": "Centro de Referência da Saúde da Mulher",
-      "especialidade": "Oncologia",
-      "mini_cv": "Diretor do Centro de Referência da Saúde da Mulher.",
-      "curriculo_completo": "Diretor do Centro de Referência da Saúde da Mulher; Ex-Secretário de Saúde do Estado de SP."
-    },
-    {
-      "id": "p278",
-      "codigo": "278",
-      "nome": "José Luiz Pedrini",
-      "cidade": "Porto Alegre",
-      "estado": "RS",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/men/3.jpg",
-      "instituicao": "Hospital Conceição",
-      "especialidade": "Mastologia",
-      "mini_cv": "Chefe do Serviço de Mastologia do Hospital Conceição.",
-      "curriculo_completo": "Chefe do Serviço de Mastologia do Hospital Conceição; Presidente da SBM (2008-2010)."
-    },
-    {
-      "id": "p308",
-      "codigo": "308",
-      "nome": "Vilmar Marques",
-      "cidade": "Porto Alegre",
-      "estado": "RS",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/men/4.jpg",
-      "instituicao": "Hospital de Clínicas",
-      "especialidade": "Oncologia Clínica",
-      "mini_cv": "Presidente da Sociedade Brasileira de Mastologia.",
-      "curriculo_completo": "Presidente da Sociedade Brasileira de Mastologia; Professor da UFRGS."
-    },
-    {
-      "id": "p310",
-      "codigo": "310",
-      "nome": "Ruffo de Freitas Jr.",
-      "cidade": "Goiânia",
-      "estado": "GO",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/men/5.jpg",
-      "instituicao": "Universidade Federal de Goiás",
-      "especialidade": "Mastologia",
-      "mini_cv": "Professor Titular da Universidade Federal de Goiás.",
-      "curriculo_completo": "Professor Titular da Universidade Federal de Goiás; Pesquisador 1A do CNPq."
-    },
-    {
-      "id": "p401",
-      "codigo": "401",
-      "nome": "Antonio Frasson",
-      "cidade": "São Paulo",
-      "estado": "SP",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/men/6.jpg",
-      "instituicao": "Hospital Albert Einstein",
-      "especialidade": "Mastologia",
-      "mini_cv": "Coordenador de Mastologia do Hospital Albert Einstein.",
-      "curriculo_completo": "Coordenador de Mastologia do Hospital Albert Einstein; Professor da PUCRS."
-    },
-    {
-      "id": "p402",
-      "codigo": "402",
-      "nome": "Carlos Alberto Ruiz",
-      "cidade": "São Paulo",
-      "estado": "SP",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/men/7.jpg",
-      "instituicao": "Hospital Alemão Oswaldo Cruz",
-      "especialidade": "Oncologia",
-      "mini_cv": "Chefe da Mastologia do Hospital Alemão Oswaldo Cruz.",
-      "curriculo_completo": "Chefe da Mastologia do Hospital Alemão Oswaldo Cruz."
-    },
-    {
-      "id": "p403",
-      "codigo": "403",
-      "nome": "Cícero Urban",
-      "cidade": "Curitiba",
-      "estado": "PR",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/men/8.jpg",
-      "instituicao": "Hospital Nossa Senhora das Graças",
-      "especialidade": "Cirurgia Oncológica",
-      "mini_cv": "Professor de Bioética e Cirurgia da Universidade Positivo.",
-      "curriculo_completo": "Professor de Bioética e Cirurgia da Universidade Positivo; Chefe do Serviço de Mastologia do Hospital Nossa Senhora das Graças."
-    },
-    {
-      "id": "p404",
-      "codigo": "404",
-      "nome": "Felipe Andrade",
-      "cidade": "São Paulo",
-      "estado": "SP",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/men/9.jpg",
-      "instituicao": "Hospital Sírio-Libanês",
-      "especialidade": "Mastologia",
-      "mini_cv": "Mastologista do Hospital Sírio-Libanês.",
-      "curriculo_completo": "Mastologista do Hospital Sírio-Libanês; Doutor em Oncologia pela USP."
-    },
-    {
-      "id": "p405",
-      "codigo": "405",
-      "nome": "Guilherme Novita",
-      "cidade": "São Paulo",
-      "estado": "SP",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/men/10.jpg",
-      "instituicao": "Instituto do Câncer do Estado de São Paulo",
-      "especialidade": "Mastologia",
-      "mini_cv": "Médico do ICESP.",
-      "curriculo_completo": "Médico do ICESP; Doutorado pela FMUSP."
-    },
-    {
-      "id": "p406",
-      "codigo": "406",
-      "nome": "João Bosco Ramos",
-      "cidade": "São Paulo",
-      "estado": "SP",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/men/11.jpg",
-      "instituicao": "FMABC",
-      "especialidade": "Ginecologia",
-      "mini_cv": "Professor Titular de Ginecologia da FMABC.",
-      "curriculo_completo": "Professor Titular de Ginecologia da FMABC."
-    },
-    {
-      "id": "p407",
-      "codigo": "407",
-      "nome": "Eduardo Millen",
-      "cidade": "Rio de Janeiro",
-      "estado": "RJ",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/men/12.jpg",
-      "instituicao": "SBM-RJ",
-      "especialidade": "Mastologia",
-      "mini_cv": "Presidente da SBM-RJ.",
-      "curriculo_completo": "Presidente da SBM-RJ; Membro da Comissão de Título de Especialista."
-    },
-    {
-      "id": "p408",
-      "codigo": "408",
-      "nome": "Ana Beatriz",
-      "cidade": "Belo Horizonte",
-      "estado": "MG",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/women/1.jpg",
-      "instituicao": "UFMG",
-      "especialidade": "Genética Médica",
-      "mini_cv": "Pesquisadora em Genética Oncológica.",
-      "curriculo_completo": "Pesquisadora em Genética Oncológica da UFMG."
-    },
-    {
-      "id": "p409",
-      "codigo": "409",
-      "nome": "Carlos Barros",
-      "cidade": "Recife",
-      "estado": "PE",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/men/13.jpg",
-      "instituicao": "IMIP",
-      "especialidade": "Oncologia",
-      "mini_cv": "Oncologista Clínico do IMIP.",
-      "curriculo_completo": "Oncologista Clínico do IMIP."
-    },
-    {
-      "id": "p410",
-      "codigo": "410",
-      "nome": "Fernanda Silva",
-      "cidade": "Salvador",
-      "estado": "BA",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/women/2.jpg",
-      "instituicao": "Hospital Português",
-      "especialidade": "Radioterapia",
-      "mini_cv": "Radio-oncologista do Hospital Português.",
-      "curriculo_completo": "Radio-oncologista do Hospital Português."
-    },
-    {
-      "id": "p411",
-      "codigo": "411",
-      "nome": "Mariana Costa",
-      "cidade": "Curitiba",
-      "estado": "PR",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/women/3.jpg",
-      "instituicao": "Hospital Erasto Gaertner",
-      "especialidade": "Patologia",
-      "mini_cv": "Patologista do Hospital Erasto Gaertner.",
-      "curriculo_completo": "Patologista do Hospital Erasto Gaertner."
-    },
-    {
-      "id": "p500",
-      "codigo": "500",
-      "nome": "Roberto Hegg",
-      "cidade": "São Paulo",
-      "estado": "SP",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/men/14.jpg",
-      "instituicao": "Hospital Pérola Byington",
-      "especialidade": "Mastologia",
-      "mini_cv": "Diretor Técnico do Hospital Pérola Byington.",
-      "curriculo_completo": "Diretor Técnico do Hospital Pérola Byington; Professor da FMUSP."
-    },
-    {
-      "id": "p501",
-      "codigo": "501",
-      "nome": "Sandra Gioia",
-      "cidade": "Rio de Janeiro",
-      "estado": "RJ",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/women/4.jpg",
-      "instituicao": "INCA",
-      "especialidade": "Mastologia",
-      "mini_cv": "Chefe da Seção de Mastologia do INCA.",
-      "curriculo_completo": "Chefe da Seção de Mastologia do INCA III."
-    },
-    {
-      "id": "p502",
-      "codigo": "502",
-      "nome": "Fabrício Palermo",
-      "cidade": "Sorocaba",
-      "estado": "SP",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/men/15.jpg",
-      "instituicao": "PUC-SP",
-      "especialidade": "Mastologia",
-      "mini_cv": "Professor Assistente da PUC-SP.",
-      "curriculo_completo": "Professor Assistente da PUC-SP; Coordenador do Nucleo de Mama de Sorocaba."
-    },
-    {
-      "id": "p503",
-      "codigo": "503",
-      "nome": "Waldeir Almeida",
-      "cidade": "Belo Horizonte",
-      "estado": "MG",
-      "pais": "Brasil",
-      "foto": "https://randomuser.me/api/portraits/men/16.jpg",
-      "instituicao": "SBM",
-      "especialidade": "Mastologia",
-      "mini_cv": "Vice-Presidente da Sociedade Brasileira de Mastologia.",
-      "curriculo_completo": "Vice-Presidente da Sociedade Brasileira de Mastologia; Mastologista da Santa Casa de BH."
+      "numero": 1,
+      "data": "01/10",
+      "data_completa": "01/10/2025",
+      "layout": "list",
+      "sessoes": [
+        {
+          "id": "d1_s1",
+          "codigo_atividade": "1",
+          "tipo": "workshop",
+          "horario_inicio": "14:00",
+          "horario_fim": "16:00",
+          "sala": "Curso Pré-Jornada Online - Alto Risco",
+          "grade": "Alto Risco",
+          "titulo": "Manejo Atual da Mulher com Alto Risco para Câncer de Mama",
+          "descricao": "Abordagem completa sobre rastreamento, genética e condutas cirúrgicas em pacientes de alto risco.",
+          "tipo_original": "Mesa",
+          "modalidade": "Online",
+          "moderadores": [
+            {
+              "palestrante_id": "p236",
+              "nome": "Cesar Cabello dos Santos",
+              "foto": "https://audi.iweventos.com.br/upload/perfil/15491.jpg"
+            }
+          ],
+          "debatedores": [
+            {
+              "palestrante_id": "p308",
+              "nome": "Paula Tambellini",
+              "foto": "https://audi.iweventos.com.br/upload/perfil/15563.jpeg",
+              "instituicao": "Hospital Sírio-Libanês"
+            },
+            {
+              "palestrante_id": "p336",
+              "nome": "Thamyse Fernanda de Sa Dassie",
+              "foto": "https://audi.iweventos.com.br/upload/perfil/15591.jpeg",
+              "instituicao": "SBM"
+            }
+          ],
+          "nucleo_jovem": [
+            {
+              "palestrante_id": "p600",
+              "nome": "Tais Chebat Watanabe",
+              "foto": "https://audi.iweventos.com.br/upload/perfil/16206.jpeg"
+            }
+          ],
+          "aulas": [
+            {
+              "codigo_subatividade": "1594",
+              "horario_inicio": "14:00",
+              "horario_fim": "14:15",
+              "titulo": "Cirurgia redutora de risco: critérios para a tomada de decisão",
+              "palestrante_id": "p518",
+              "palestrante_nome": "Luciana Zapata",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/16001.jpeg"
+            },
+            {
+              "codigo_subatividade": "1595",
+              "horario_inicio": "14:15",
+              "horario_fim": "14:30",
+              "titulo": "Painéis multigênicos além de BRCA: como interpretar e aplicar os resultados na prática clínica",
+              "palestrante_id": "p299",
+              "palestrante_nome": "Maria Isabel Achatz",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15554.jpeg"
+            },
+            {
+              "codigo_subatividade": "1596",
+              "horario_inicio": "14:30",
+              "horario_fim": "14:45",
+              "titulo": "Risco familiar sem mutação: aplicabilidade dos painéis poligênicos",
+              "palestrante_id": "p278",
+              "palestrante_nome": "Jose Claudio Casali da Rocha",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15533.jpeg"
+            },
+            {
+              "codigo_subatividade": "1597",
+              "horario_inicio": "14:45",
+              "horario_fim": "15:00",
+              "titulo": "Rastreamento personalizado em pacientes de alto risco: quando e como monitorar?",
+              "palestrante_id": "p261",
+              "palestrante_nome": "Giovanna Azevedo Gabriele Carlos",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15516.jpeg"
+            },
+            {
+              "codigo_subatividade": "1598",
+              "horario_inicio": "15:00",
+              "horario_fim": "15:15",
+              "titulo": "Modelos de predição de risco: validação, limitações e perspectivas na prática clínica",
+              "palestrante_id": "p511",
+              "palestrante_nome": "Pablo de Nicola",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15973.jpeg"
+            },
+            {
+              "codigo_subatividade": "1599",
+              "horario_inicio": "15:15",
+              "horario_fim": "15:30",
+              "titulo": "Abordagens não cirúrgicas para redução de risco: evidências e controvérsias atuais",
+              "palestrante_id": "p315",
+              "palestrante_nome": "Rebeca Neves Heinzen",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15570.jpeg"
+            }
+          ]
+        },
+        {
+          "id": "d1_s2",
+          "codigo_atividade": "2",
+          "tipo": "workshop",
+          "horario_inicio": "16:00",
+          "horario_fim": "18:00",
+          "sala": "Curso Pré-Jornada Online - Alto Risco",
+          "grade": "Alto Risco",
+          "titulo": "Situações Especiais em Mastologia",
+          "descricao": "Discussão de casos especiais: pacientes jovens, idosas, gestantes, população LGBTQIA+ e outros cenários desafiadores.",
+          "tipo_original": "Mesa",
+          "modalidade": "Online",
+          "moderadores": [
+            {
+              "palestrante_id": "p762",
+              "nome": "Beatriz Baaklini Geronymo",
+              "foto": "https://audi.iweventos.com.br/upload/perfil/16371.JPEG"
+            }
+          ],
+          "debatedores": [
+            {
+              "palestrante_id": "p301",
+              "nome": "Mariana Burity Xavier",
+              "foto": "https://audi.iweventos.com.br/upload/perfil/15556.png",
+              "instituicao": "Real Hospital Português"
+            },
+            {
+              "palestrante_id": "p314",
+              "nome": "Rafaela Cecilio Sahium",
+              "foto": "https://audi.iweventos.com.br/upload/perfil/15569.jpg",
+              "instituicao": "Hospital Alemão Oswaldo Cruz"
+            }
+          ],
+          "nucleo_jovem": [
+            {
+              "palestrante_id": "p600",
+              "nome": "Tais Chebat Watanabe",
+              "foto": "https://audi.iweventos.com.br/upload/perfil/16206.jpeg"
+            }
+          ],
+          "aulas": [
+            {
+              "codigo_subatividade": "1601",
+              "horario_inicio": "16:00",
+              "horario_fim": "16:15",
+              "titulo": "Câncer de mama na gestação: condutas seguras e atualizações terapêuticas",
+              "palestrante_id": "p357",
+              "palestrante_nome": "Laura Testa",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15612.jpeg"
+            },
+            {
+              "codigo_subatividade": "1602",
+              "horario_inicio": "16:15",
+              "horario_fim": "16:30",
+              "titulo": "Câncer de mama em homens: diagnóstico, tratamento e particularidades",
+              "palestrante_id": "p255",
+              "palestrante_nome": "Fernando Schuh",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15510.jpg"
+            },
+            {
+              "codigo_subatividade": "1603",
+              "horario_inicio": "16:30",
+              "horario_fim": "16:45",
+              "titulo": "Câncer de mama em idosas: descalonamento terapêutico e individualização de conduta",
+              "palestrante_id": "p252",
+              "palestrante_nome": "Felipe Andrade",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15507.jpeg"
+            },
+            {
+              "codigo_subatividade": "1604",
+              "horario_inicio": "16:45",
+              "horario_fim": "17:00",
+              "titulo": "População LGBTQIA+: adaptações no rastreamento, abordagem clínica e acolhimento",
+              "palestrante_id": "p286",
+              "palestrante_nome": "Juliana Zabukas de Andrade",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15541.png"
+            },
+            {
+              "codigo_subatividade": "1605",
+              "horario_inicio": "17:00",
+              "horario_fim": "17:15",
+              "titulo": "Paciente jovem sem mutação: decisão terapêutica entre prudência e agressividade",
+              "palestrante_id": "p208",
+              "palestrante_nome": "Adriana Akemi Yoshimura",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15463.jpg"
+            },
+            {
+              "codigo_subatividade": "1606",
+              "horario_inicio": "17:15",
+              "horario_fim": "17:30",
+              "titulo": "Amamentação após o câncer de mama: evidências e orientações práticas",
+              "palestrante_id": "p304",
+              "palestrante_nome": "Mayka Volpato dos Santos",
+              "palestrante_foto": "https://audi.iweventos.com.br/upload/perfil/15559.jpeg"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
