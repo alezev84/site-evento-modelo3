@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // --- CARREGAMENTO DE DADOS ---
 async function carregarProgramacao() {
     // Tenta localizar o container correto no HTML do Claude
-    const container = document.getElementById('schedule-container') || 
-                      document.getElementById('programacao-container');
+    const container = document.querySelector('schedule-container') || 
+                      document.querySelector('programacao-container');
     
     if (!container) {
         console.error('❌ ERRO: Container da programação não encontrado no HTML.');
@@ -101,7 +101,7 @@ function abrirModalSessao(index) {
     const item = window.dadosProgramacao[index];
     
     // Tenta usar o modal existente no HTML ou busca genericamente
-    let modal = document.getElementById('modal-schedule') || document.querySelector('.modal-overlay');
+    let modal = document.querySelector('modal-schedule') || document.querySelector('.modal-overlay');
     
     if (!modal) {
         alert('Erro: Estrutura do modal não encontrada no HTML.');
@@ -164,7 +164,7 @@ function abrirModalPalestrantePorCima(nome) {
 
     // 2. Cria o HTML do modal dinamicamente (para não depender do seu HTML estático)
     // Verifica se já existe para não duplicar
-    let modalSpeaker = document.getElementById('modal-speaker-detail');
+    let modalSpeaker = document.querySelector('modal-speaker-detail');
     
     if (!modalSpeaker) {
         modalSpeaker = document.createElement('div');
@@ -198,18 +198,18 @@ function abrirModalPalestrantePorCima(nome) {
 // --- FUNÇÕES DE FECHAMENTO ---
 
 function fecharModalSessao() {
-    const modal = document.getElementById('modal-schedule') || document.querySelector('.modal-overlay');
+    const modal = document.querySelector('modal-schedule') || document.querySelector('.modal-overlay');
     if (modal) modal.classList.remove('active');
     
     // Só destrava o scroll se o modal de cima também estiver fechado
-    if (!document.getElementById('modal-speaker-detail')?.classList.contains('active')) {
+    if (!document.querySelector('modal-speaker-detail')?.classList.contains('active')) {
         document.body.style.overflow = '';
     }
 }
 
 // Esta função precisa ser global para o onclick do HTML dinâmico funcionar
 window.fecharModalSpeaker = function() {
-    const modal = document.getElementById('modal-speaker-detail');
+    const modal = document.querySelector('modal-speaker-detail');
     if (modal) modal.classList.remove('active');
     // Não mexemos no overflow porque o modal de baixo (sessão) continua aberto
 }
@@ -219,8 +219,8 @@ window.fecharModalSpeaker = function() {
 function setupGlobalListeners() {
     // Fecha ao clicar fora (Overlay)
     window.addEventListener('click', (e) => {
-        const mSpeaker = document.getElementById('modal-speaker-detail');
-        const mSession = document.getElementById('modal-schedule') || document.querySelector('.modal-overlay');
+        const mSpeaker = document.querySelector('modal-speaker-detail');
+        const mSession = document.querySelector('modal-schedule') || document.querySelector('.modal-overlay');
 
         // Se clicou no overlay do modal de cima, fecha ele
         if (e.target === mSpeaker) {
@@ -237,7 +237,7 @@ function setupGlobalListeners() {
     // Escuta tecla ESC
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-            const mSpeaker = document.getElementById('modal-speaker-detail');
+            const mSpeaker = document.querySelector('modal-speaker-detail');
             if (mSpeaker && mSpeaker.classList.contains('active')) {
                 fecharModalSpeaker();
             } else {
