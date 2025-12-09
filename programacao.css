@@ -464,16 +464,18 @@
   display: grid;
   grid-template-columns: 120px 1fr;
   gap: var(--spacing-md);
-  padding: var(--spacing-md);
+  padding: 5px;
   background: var(--bg-light);
   border-radius: 12px;
   border-left: 4px solid var(--accent-color);
   transition: var(--transition-fast);
+  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.25);
 }
 
 .modal-aula-item:hover {
   background: #e8f4f8;
   border-left-color: var(--primary-color);
+  box-shadow: 3px 5px 15px rgba(0, 0, 0, 0.35);
 }
 
 .modal-aula-time {
@@ -510,10 +512,11 @@
 }
 
 .modal-aula-foto {
-  width: 40px;
-  height: 40px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
   object-fit: cover;
+  object-position: top;
   border: 2px solid var(--white);
   box-shadow: var(--shadow-sm);
 }
@@ -710,3 +713,4 @@
   }
 
 }
+
