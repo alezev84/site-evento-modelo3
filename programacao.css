@@ -55,7 +55,6 @@
   background: var(--white);
   padding: var(--spacing-lg) var(--spacing-sm);
   box-shadow: var(--shadow-sm);
-  position: sticky;
   top: 60px;
   z-index: 90;
 }
@@ -709,4 +708,5 @@
   .modal-palestrante-nome {
     font-size: 1.4rem;
   }
+
 }
