@@ -13,7 +13,7 @@ async function carregarProgramacao() {
 
     try {
         // Carrega o arquivo gerado pelo seu script
-        const response = await fetch('./programacao.json');
+        const response = await fetch('data/programacao.json');
         const dadosOriginais = await response.json();
 
         // Limpa o container
