@@ -1,254 +1,469 @@
-/**
- * SCRIPT FINAL DE PROGRAMAÇÃO - VERSÃO FULL STACK
- * Funcionalidades: Leitura de JSON local, Renderização Visual Claude, Modal Stacking
- */
+// ========================================
+// PROGRAMACAO.JS
+// ========================================
 
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('🚀 Iniciando sistema de programação...');
-    carregarProgramacao();
-    setupGlobalListeners();
-});
-
-// --- CARREGAMENTO DE DADOS ---
-async function carregarProgramacao() {
-    // Tenta localizar o container correto no HTML do Claude
-    const container = document.querySelector('schedule-container') || 
-                      document.querySelector('programacao-container');
+class ProgramacaoManager {
+  constructor() {
+    // Elementos DOM
+    this.programacaoGrid = document.getElementById('programacaoGrid');
+    this.searchInput = document.getElementById('searchInput');
+    this.dayFilters = document.querySelectorAll('.day-filter');
+    this.typeFilters = document.querySelectorAll('.type-filter');
     
-    if (!container) {
-        console.error('❌ ERRO: Container da programação não encontrado no HTML.');
-        return;
-    }
-
+    // Dados
+    this.programacaoData = null;
+    this.palestrantesData = null;
+    this.filteredSessoes = [];
+    
+    // Filtros ativos
+    this.currentDay = 'todos';
+    this.currentType = 'todos';
+    this.currentSearch = '';
+    
+    this.init();
+  }
+  
+  async init() {
     try {
-        // Tenta ler o arquivo JSON local
-        const response = await fetch('data/programacao.json');
-        
-        if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
-        
-        const dados = await response.json();
-        
-        // Armazena dados globalmente para acesso pelos modais
-        window.dadosProgramacao = dados;
-
-        // Limpa e Renderiza
-        container.innerHTML = '';
-        
-        if (dados.length === 0) {
-            container.innerHTML = '<div class="empty-state">Nenhuma programação encontrada.</div>';
-            return;
-        }
-
-        dados.forEach((sessao, index) => {
-            const card = criarCardHTML(sessao, index);
-            container.appendChild(card);
-        });
-
+      // Mostrar loading
+      Utils.showLoading(this.programacaoGrid);
+      
+      // Carregar JSONs
+      await this.loadData();
+      
+      // Setup event listeners
+      this.setupEventListeners();
+      
+      // Renderizar
+      this.filterAndRender();
+      
+      console.log('✅ Programação inicializada');
+      
     } catch (error) {
-        console.error('❌ Erro fatal:', error);
-        container.innerHTML = `
-            <div style="padding: 20px; background: #fff0f0; color: #d32f2f; border-radius: 8px; border: 1px solid #ffcdd2;">
-                <strong>Erro ao carregar a programação:</strong><br>
-                Certifique-se que o arquivo <code>programacao.json</code> está na pasta <code>data</code>.
-            </div>
-        `;
+      console.error('❌ Erro ao inicializar:', error);
+      Utils.showError(this.programacaoGrid, 'Erro ao carregar programação');
     }
-}
-
-// --- RENDERIZAÇÃO (VISUAL CLAUDE) ---
-function criarCardHTML(item, index) {
-    const div = document.createElement('div');
-    div.className = 'schedule-item'; // Classe original do Claude
-
-    // Gera as bolinhas dos palestrantes (se houver)
-    let speakersPreview = '';
-    if (item.palestrantes && item.palestrantes.length > 0) {
-        speakersPreview = `
-            <div class="speakers-preview" style="display: flex; gap: -8px; margin-top: 12px;">
-                ${item.palestrantes.map(p => `
-                    <div class="speaker-avatar-xs" title="${p.nome}" 
-                         style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid white; overflow: hidden; margin-right: -8px; background: #eee;">
-                        <img src="${p.foto || 'assets/default-user.png'}" 
-                             style="width: 100%; height: 100%; object-fit: cover;"
-                             onerror="this.src='https://via.placeholder.com/32'">
-                    </div>
-                `).join('')}
-            </div>
-        `;
+  }
+  
+  async loadData() {
+    try {
+      // Carregar programação
+      this.programacaoData = await Utils.JSONLoader.load('data/programacao.json');
+      
+      // Carregar palestrantes
+      this.palestrantesData = await Utils.JSONLoader.load('data/palestrantes.json');
+      
+      console.log(`✅ ${this.programacaoData.dias.length} dias carregados`);
+      console.log(`✅ ${this.palestrantesData.palestrantes.length} palestrantes carregados`);
+      
+    } catch (error) {
+      console.error('❌ Erro ao carregar dados:', error);
+      throw error;
     }
-
-    div.innerHTML = `
-        <div class="schedule-time">
-            <span class="time-start">${item.horario_inicio}</span>
-            <span class="time-end">${item.horario_fim}</span>
+  }
+  
+  setupEventListeners() {
+    // Busca com debounce
+    if (this.searchInput) {
+      const debouncedSearch = Utils.debounce((value) => {
+        this.currentSearch = value.toLowerCase().trim();
+        this.filterAndRender();
+      }, 300);
+      
+      this.searchInput.addEventListener('input', (e) => {
+        debouncedSearch(e.target.value);
+      });
+    }
+    
+    // Filtros de dia
+    this.dayFilters.forEach(btn => {
+      btn.addEventListener('click', () => {
+        this.dayFilters.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        this.currentDay = btn.dataset.day;
+        this.filterAndRender();
+      });
+    });
+    
+    // Filtros de tipo
+    this.typeFilters.forEach(btn => {
+      btn.addEventListener('click', () => {
+        this.typeFilters.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        this.currentType = btn.dataset.type;
+        this.filterAndRender();
+      });
+    });
+  }
+  
+  filterAndRender() {
+    // Coletar todas as sessões de todos os dias
+    let allSessoes = [];
+    
+    this.programacaoData.dias.forEach(dia => {
+      dia.sessoes.forEach(sessao => {
+        allSessoes.push({
+          ...sessao,
+          dia: dia.numero,
+          data: dia.data,
+          data_completa: dia.data_completa
+        });
+      });
+    });
+    
+    // Aplicar filtros
+    this.filteredSessoes = allSessoes.filter(sessao => {
+      // Filtro de dia
+      const matchesDay = this.currentDay === 'todos' || 
+                        sessao.dia === parseInt(this.currentDay);
+      
+      // Filtro de tipo
+      const matchesType = this.currentType === 'todos' || 
+                         sessao.tipo === this.currentType;
+      
+      // Filtro de busca
+      const searchLower = this.currentSearch;
+      const matchesSearch = !searchLower ||
+                           sessao.titulo.toLowerCase().includes(searchLower) ||
+                           sessao.sala.toLowerCase().includes(searchLower) ||
+                           (sessao.descricao && sessao.descricao.toLowerCase().includes(searchLower)) ||
+                           this.searchInAulas(sessao.aulas, searchLower) ||
+                           this.searchInPessoas(sessao, searchLower);
+      
+      return matchesDay && matchesType && matchesSearch;
+    });
+    
+    // Renderizar
+    this.render();
+  }
+  
+  searchInAulas(aulas, searchTerm) {
+    if (!aulas || aulas.length === 0) return false;
+    return aulas.some(aula => 
+      aula.titulo.toLowerCase().includes(searchTerm) ||
+      aula.palestrante_nome.toLowerCase().includes(searchTerm)
+    );
+  }
+  
+  searchInPessoas(sessao, searchTerm) {
+    // Buscar em moderadores
+    if (sessao.moderadores && sessao.moderadores.some(m => 
+      m.nome.toLowerCase().includes(searchTerm)
+    )) return true;
+    
+    // Buscar em debatedores
+    if (sessao.debatedores && sessao.debatedores.some(d => 
+      d.nome.toLowerCase().includes(searchTerm)
+    )) return true;
+    
+    return false;
+  }
+  
+  render() {
+    if (this.filteredSessoes.length === 0) {
+      Utils.showEmptyState(this.programacaoGrid, 'Nenhuma sessão encontrada');
+      return;
+    }
+    
+    // Agrupar por dia se necessário
+    const groupedByDay = this.groupByDay(this.filteredSessoes);
+    
+    let html = '';
+    
+    groupedByDay.forEach(group => {
+      html += `
+        <div class="day-group">
+          <h2 class="day-title">${Utils.formatDateBR(group.data_completa)}</h2>
+          <div class="sessoes-grid">
+            ${group.sessoes.map(sessao => this.createSessaoCard(sessao)).join('')}
+          </div>
         </div>
-        <div class="schedule-content">
-            <span class="schedule-location">${item.local || 'Auditório Principal'}</span>
-            <h3 class="schedule-title">${item.atividade}</h3>
-            ${speakersPreview}
-            <button class="btn-details" onclick="abrirModalSessao(${index})" style="margin-top: 15px;">
-                Ver detalhes
-            </button>
+      `;
+    });
+    
+    this.programacaoGrid.innerHTML = html;
+    
+    // Adicionar event listeners aos cards
+    this.addCardListeners();
+  }
+  
+  groupByDay(sessoes) {
+    const grouped = {};
+    
+    sessoes.forEach(sessao => {
+      const key = sessao.dia;
+      if (!grouped[key]) {
+        grouped[key] = {
+          dia: sessao.dia,
+          data: sessao.data,
+          data_completa: sessao.data_completa,
+          sessoes: []
+        };
+      }
+      grouped[key].sessoes.push(sessao);
+    });
+    
+    // Converter para array e ordenar por dia
+    return Object.values(grouped).sort((a, b) => a.dia - b.dia);
+  }
+  
+  createSessaoCard(sessao) {
+    const typeLabels = {
+      'keynote': 'Palestra Magna',
+      'roundtable': 'Mesa Redonda',
+      'symposium': 'Simpósio',
+      'workshop': 'Workshop',
+      'conference': 'Conferência',
+      'break': 'Intervalo',
+      'lunch': 'Almoço'
+    };
+    
+    const typeLabel = typeLabels[sessao.tipo] || 'Sessão';
+    const numAulas = sessao.aulas ? sessao.aulas.length : 0;
+    
+    // Pegar foto do primeiro palestrante (se houver)
+    let featuredImage = 'https://placehold.co/400x300/2c5aa0/white?text=Sessão';
+    if (sessao.aulas && sessao.aulas.length > 0 && sessao.aulas[0].palestrante_foto) {
+      featuredImage = sessao.aulas[0].palestrante_foto;
+    }
+    
+    return `
+      <article class="sessao-card animate-on-scroll" data-sessao-id="${sessao.id}">
+        <div class="sessao-image-wrapper">
+          <img src="${featuredImage}" alt="${sessao.titulo}" class="sessao-img" loading="lazy">
+          <div class="sessao-type-badge ${sessao.tipo}">${typeLabel}</div>
+        </div>
+        <div class="sessao-content">
+          <div class="sessao-meta">
+            <span class="sessao-time">⏰ ${Utils.formatTimeRange(sessao.horario_inicio, sessao.horario_fim)}</span>
+            <span class="sessao-room">📍 ${sessao.sala}</span>
+          </div>
+          <h3 class="sessao-title">${sessao.titulo}</h3>
+          ${sessao.descricao ? `<p class="sessao-description">${Utils.truncateText(sessao.descricao, 120)}</p>` : ''}
+          <div class="sessao-footer">
+            <span class="sessao-count">${numAulas} apresentação${numAulas !== 1 ? 'ões' : ''}</span>
+            <button class="sessao-btn">Ver Detalhes</button>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+  
+  addCardListeners() {
+    const cards = this.programacaoGrid.querySelectorAll('.sessao-card');
+    
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const sessaoId = card.dataset.sessaoId;
+        this.openSessaoModal(sessaoId);
+      });
+      
+      // Keyboard accessibility
+      card.setAttribute('tabindex', '0');
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const sessaoId = card.dataset.sessaoId;
+          this.openSessaoModal(sessaoId);
+        }
+      });
+    });
+    
+    // Animar cards
+    Utils.initAnimateOnScroll('.animate-on-scroll');
+  }
+  
+  openSessaoModal(sessaoId) {
+    // Encontrar sessão
+    let sessao = null;
+    
+    for (const dia of this.programacaoData.dias) {
+      const found = dia.sessoes.find(s => s.id === sessaoId);
+      if (found) {
+        sessao = {
+          ...found,
+          dia: dia.numero,
+          data: dia.data,
+          data_completa: dia.data_completa
+        };
+        break;
+      }
+    }
+    
+    if (!sessao) {
+      console.error('Sessão não encontrada:', sessaoId);
+      return;
+    }
+    
+    // Gerar conteúdo do modal
+    const modalContent = this.generateSessaoModalContent(sessao);
+    
+    // Abrir modal
+    Utils.Modal.open(modalContent);
+  }
+  
+  generateSessaoModalContent(sessao) {
+    const typeLabels = {
+      'keynote': 'Palestra Magna',
+      'roundtable': 'Mesa Redonda',
+      'symposium': 'Simpósio',
+      'workshop': 'Workshop',
+      'conference': 'Conferência'
+    };
+    
+    const typeLabel = typeLabels[sessao.tipo] || 'Sessão';
+    
+    let html = `
+      <div class="modal-sessao">
+        <div class="modal-header">
+          <span class="modal-type-badge ${sessao.tipo}">${typeLabel}</span>
+          <h2 class="modal-title">${sessao.titulo}</h2>
+          <div class="modal-meta">
+            <span class="modal-date">📅 ${Utils.formatDateBR(sessao.data_completa)}</span>
+            <span class="modal-time">⏰ ${Utils.formatTimeRange(sessao.horario_inicio, sessao.horario_fim)}</span>
+            <span class="modal-room">📍 ${sessao.sala}</span>
+          </div>
+          ${sessao.descricao ? `<p class="modal-description">${sessao.descricao}</p>` : ''}
         </div>
     `;
-
-    return div;
-}
-
-// --- SISTEMA DE MODAIS (A MÁGICA ACONTECE AQUI) ---
-
-function abrirModalSessao(index) {
-    const item = window.dadosProgramacao[index];
     
-    // Tenta usar o modal existente no HTML ou busca genericamente
-    let modal = document.querySelector('modal-schedule') || document.querySelector('.modal-overlay');
-    
-    if (!modal) {
-        alert('Erro: Estrutura do modal não encontrada no HTML.');
-        return;
+    // Moderadores
+    if (sessao.moderadores && sessao.moderadores.length > 0) {
+      html += `
+        <div class="modal-section">
+          <h3 class="modal-section-title">Moderação</h3>
+          <div class="modal-pessoas-grid">
+            ${sessao.moderadores.map(mod => this.createPessoaCard(mod, 'moderador')).join('')}
+          </div>
+        </div>
+      `;
     }
-
-    // Preenche os textos (com verificação de segurança)
-    const setSafeText = (id, text) => {
-        const el = modal.querySelector('#' + id) || document.getElementById(id);
-        if (el) el.textContent = text;
-    };
-
-    setSafeText('modal-title', item.atividade);
-    setSafeText('modal-time', `${item.horario_inicio} - ${item.horario_fim}`);
-    setSafeText('modal-description', item.descricao || 'Sem descrição detalhada.');
-
-    // Renderiza a lista de palestrantes dentro do modal da sessão
-    const speakersList = modal.querySelector('#modal-speakers-list') || document.getElementById('modal-speakers-list');
     
-    if (speakersList) {
-        if (item.palestrantes && item.palestrantes.length > 0) {
-            speakersList.innerHTML = item.palestrantes.map(p => `
-                <div class="modal-speaker-item" onclick="abrirModalPalestrantePorCima('${escaparString(p.nome)}')" style="cursor: pointer;">
-                    <img src="${p.foto || 'assets/default-user.png'}" onerror="this.src='https://via.placeholder.com/50'">
-                    <div class="speaker-info">
-                        <h4>${p.nome}</h4>
-                        <p>${p.cargo}</p>
-                    </div>
-                </div>
-            `).join('');
-            // Mostra a seção de palestrantes
-            if(speakersList.parentElement) speakersList.parentElement.style.display = 'block';
-        } else {
-            // Esconde se não tiver ninguém
-            if(speakersList.parentElement) speakersList.parentElement.style.display = 'none';
-        }
+    // Aulas/Apresentações
+    if (sessao.aulas && sessao.aulas.length > 0) {
+      html += `
+        <div class="modal-section">
+          <h3 class="modal-section-title">Programação</h3>
+          <div class="modal-aulas">
+            ${sessao.aulas.map(aula => this.createAulaItem(aula)).join('')}
+          </div>
+        </div>
+      `;
     }
-
-    // Abre o modal
-    modal.classList.add('active');
-    modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden'; // Trava rolagem do fundo
-}
-
-// Função que cria e abre o SEGUNDO modal (sobreposto)
-function abrirModalPalestrantePorCima(nome) {
-    // 1. Encontra os dados do palestrante
-    let palestrante = null;
-    window.dadosProgramacao.some(sessao => {
-        if (!sessao.palestrantes) return false;
-        const found = sessao.palestrantes.find(p => p.nome === nome);
-        if (found) {
-            palestrante = found;
-            return true;
-        }
-        return false;
-    });
-
-    if (!palestrante) return;
-
-    // 2. Cria o HTML do modal dinamicamente (para não depender do seu HTML estático)
-    // Verifica se já existe para não duplicar
-    let modalSpeaker = document.querySelector('modal-speaker-detail');
     
-    if (!modalSpeaker) {
-        modalSpeaker = document.createElement('div');
-        modalSpeaker.id = 'modal-speaker-detail';
-        modalSpeaker.className = 'modal-overlay'; // Reusa estilo base
-        // O estilo inline garante que o CSS novo funcione
-        modalSpeaker.innerHTML = `
-            <div class="modal-content">
-                <button class="modal-close" onclick="fecharModalSpeaker()">&times;</button>
-                <div class="speaker-detail-body" style="text-align: center;">
-                    <img id="spk-dyn-img" src="" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;">
-                    <h2 id="spk-dyn-name" style="margin-bottom: 0.5rem;"></h2>
-                    <p id="spk-dyn-role" style="color: #666; font-style: italic; margin-bottom: 1rem;"></p>
-                    <div id="spk-dyn-bio" style="text-align: left; line-height: 1.6; color: #444;"></div>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(modalSpeaker);
+    // Debatedores
+    if (sessao.debatedores && sessao.debatedores.length > 0) {
+      html += `
+        <div class="modal-section">
+          <h3 class="modal-section-title">Debatedores</h3>
+          <div class="modal-pessoas-grid">
+            ${sessao.debatedores.map(deb => this.createPessoaCard(deb, 'debatedor')).join('')}
+          </div>
+        </div>
+      `;
     }
-
-    // 3. Preenche os dados
-    document.getElementById('spk-dyn-img').src = palestrante.foto || 'assets/default-user.png';
-    document.getElementById('spk-dyn-name').textContent = palestrante.nome;
-    document.getElementById('spk-dyn-role').textContent = palestrante.cargo;
-    document.getElementById('spk-dyn-bio').textContent = palestrante.bio || 'Biografia não disponível.';
-
-    // 4. Mostra o modal (Z-Index alto definido no CSS)
-    modalSpeaker.classList.add('active');
-}
-
-// --- FUNÇÕES DE FECHAMENTO ---
-
-function fecharModalSessao() {
-    const modal = document.querySelector('modal-schedule') || document.querySelector('.modal-overlay');
-    if (modal) modal.classList.remove('active');
     
-    // Só destrava o scroll se o modal de cima também estiver fechado
-    if (!document.querySelector('modal-speaker-detail')?.classList.contains('active')) {
-        document.body.style.overflow = '';
+    // Núcleo Jovem
+    if (sessao.nucleo_jovem && sessao.nucleo_jovem.length > 0) {
+      html += `
+        <div class="modal-section">
+          <h3 class="modal-section-title">Núcleo Jovem</h3>
+          <div class="modal-pessoas-grid">
+            ${sessao.nucleo_jovem.map(nj => this.createPessoaCard(nj, 'nucleo-jovem')).join('')}
+          </div>
+        </div>
+      `;
     }
-}
-
-// Esta função precisa ser global para o onclick do HTML dinâmico funcionar
-window.fecharModalSpeaker = function() {
-    const modal = document.querySelector('modal-speaker-detail');
-    if (modal) modal.classList.remove('active');
-    // Não mexemos no overflow porque o modal de baixo (sessão) continua aberto
-}
-
-// --- HELPERS E LISTENERS ---
-
-function setupGlobalListeners() {
-    // Fecha ao clicar fora (Overlay)
-    window.addEventListener('click', (e) => {
-        const mSpeaker = document.querySelector('modal-speaker-detail');
-        const mSession = document.querySelector('modal-schedule') || document.querySelector('.modal-overlay');
-
-        // Se clicou no overlay do modal de cima, fecha ele
-        if (e.target === mSpeaker) {
-            fecharModalSpeaker();
-            return; // Para não propagar pro de baixo
-        }
-        
-        // Se clicou no overlay do modal de baixo (e o de cima não está aberto), fecha o de baixo
-        if (e.target === mSession && (!mSpeaker || !mSpeaker.classList.contains('active'))) {
-            fecharModalSessao();
-        }
-    });
-
-    // Escuta tecla ESC
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            const mSpeaker = document.querySelector('modal-speaker-detail');
-            if (mSpeaker && mSpeaker.classList.contains('active')) {
-                fecharModalSpeaker();
-            } else {
-                fecharModalSessao();
-            }
-        }
-    });
-}
-
-function escaparString(str) {
-    if (!str) return '';
-    return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-}
+    
+    html += `</div>`;
+    
+    return html;
+  }
   
+  createPessoaCard(pessoa, role) {
+    const palestrante = this.getPalestranteById(pessoa.palestrante_id);
+    
+    return `
+      <div class="modal-pessoa-card" data-palestrante-id="${pessoa.palestrante_id}">
+        <img src="${pessoa.foto}" alt="${pessoa.nome}" class="modal-pessoa-foto">
+        <div class="modal-pessoa-info">
+          <h4 class="modal-pessoa-nome">${pessoa.nome}</h4>
+          ${pessoa.instituicao ? `<p class="modal-pessoa-instituicao">${pessoa.instituicao}</p>` : ''}
+          ${palestrante ? `<button class="modal-pessoa-btn" data-palestrante-id="${pessoa.palestrante_id}">Ver Currículo</button>` : ''}
+        </div>
+      </div>
+    `;
+  }
+  
+  createAulaItem(aula) {
+    return `
+      <div class="modal-aula-item">
+        <div class="modal-aula-time">
+          <span>${Utils.formatTimeRange(aula.horario_inicio, aula.horario_fim)}</span>
+        </div>
+        <div class="modal-aula-content">
+          <h4 class="modal-aula-titulo">${aula.titulo}</h4>
+          <div class="modal-aula-palestrante" data-palestrante-id="${aula.palestrante_id}">
+            <img src="${aula.palestrante_foto}" alt="${aula.palestrante_nome}" class="modal-aula-foto">
+            <span class="modal-aula-nome">${aula.palestrante_nome}</span>
+            <button class="modal-aula-btn" data-palestrante-id="${aula.palestrante_id}">Ver Currículo</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  getPalestranteById(id) {
+    if (!this.palestrantesData || !id) return null;
+    return this.palestrantesData.palestrantes.find(p => p.id === id);
+  }
+  
+  openPalestranteModal(palestranteId) {
+    const palestrante = this.getPalestranteById(palestranteId);
+    
+    if (!palestrante) {
+      console.error('Palestrante não encontrado:', palestranteId);
+      return;
+    }
+    
+    const modalContent = `
+      <div class="modal-palestrante">
+        <div class="modal-palestrante-header">
+          <img src="${palestrante.foto}" alt="${palestrante.nome}" class="modal-palestrante-foto">
+          <div class="modal-palestrante-info">
+            <h2 class="modal-palestrante-nome">${palestrante.nome}</h2>
+            <p class="modal-palestrante-instituicao">${palestrante.instituicao}</p>
+            <span class="modal-palestrante-especialidade">${palestrante.especialidade}</span>
+            <p class="modal-palestrante-local">📍 ${palestrante.cidade}, ${palestrante.estado} - ${palestrante.pais}</p>
+          </div>
+        </div>
+        <div class="modal-palestrante-body">
+          <h3>Currículo</h3>
+          <p class="modal-palestrante-cv">${palestrante.curriculo_completo}</p>
+        </div>
+      </div>
+    `;
+    
+    Utils.Modal.open(modalContent);
+  }
+}
+
+// ========================================
+// Event Delegation para botões de palestrante no modal
+// ========================================
+document.addEventListener('click', (e) => {
+  if (e.target.matches('.modal-pessoa-btn, .modal-aula-btn')) {
+    const palestranteId = e.target.dataset.palestranteId;
+    if (window.programacaoManager) {
+      window.programacaoManager.openPalestranteModal(palestranteId);
+    }
+  }
+});
+
+// ========================================
+// INICIALIZAÇÃO
+// ========================================
+document.addEventListener('DOMContentLoaded', () => {
+  window.programacaoManager = new ProgramacaoManager();
+  console.log('✅ Programação carregada');
+});
