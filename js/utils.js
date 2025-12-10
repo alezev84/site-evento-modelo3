@@ -3,39 +3,58 @@
 // ========================================
 
 // ========================================
-// MODAL SYSTEM (Universal)
+// MODAL SYSTEM (Universal) - COM SUPORTE A STACK
 // ========================================
 class Modal {
   constructor() {
-    this.modal = null;
+    this.modals = []; // Stack de modais
+    this.baseZIndex = 9999;
     this.init();
   }
   
   init() {
-    // Criar estrutura do modal se não existir
-    if (!document.getElementById('universalModal')) {
-      this.createModalStructure();
-    }
-    this.modal = document.getElementById('universalModal');
     this.setupEventListeners();
   }
   
-  createModalStructure() {
+  setupEventListeners() {
+    // Fechar com ESC (apenas o modal do topo)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.modals.length > 0) {
+        this.closeTop();
+      }
+    });
+  }
+  
+  createModalStructure(id = null) {
+    const modalId = id || `modal-${Date.now()}`;
+    
     const modalHTML = `
-      <div id="universalModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div id="${modalId}" class="modal" role="dialog" aria-modal="true">
         <div class="modal-overlay"></div>
         <div class="modal-container">
           <button class="modal-close" aria-label="Fechar modal">×</button>
-          <div class="modal-content" id="modalContent">
-            <!-- Conteúdo dinâmico -->
-          </div>
+          <div class="modal-content"></div>
         </div>
       </div>
     `;
+    
     document.body.insertAdjacentHTML('beforeend', modalHTML);
     
-    // Adicionar estilos do modal
-    this.addModalStyles();
+    // Adicionar estilos do modal (apenas uma vez)
+    if (!document.getElementById('modalStyles')) {
+      this.addModalStyles();
+    }
+    
+    const modal = document.getElementById(modalId);
+    
+    // Event listeners
+    const closeBtn = modal.querySelector('.modal-close');
+    closeBtn.addEventListener('click', () => this.close(modalId));
+    
+    const overlay = modal.querySelector('.modal-overlay');
+    overlay.addEventListener('click', () => this.close(modalId));
+    
+    return modal;
   }
   
   addModalStyles() {
@@ -51,7 +70,6 @@ class Modal {
         left: 0;
         right: 0;
         bottom: 0;
-        z-index: 9999;
         overflow-y: auto;
         padding: 20px;
       }
@@ -79,7 +97,6 @@ class Modal {
         border-radius: 16px;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         animation: slideUp 0.3s ease;
-        z-index: 10000;
       }
       
       .modal-close {
@@ -96,7 +113,7 @@ class Modal {
         border-radius: 50%;
         cursor: pointer;
         transition: all 0.2s ease;
-        z-index: 10001;
+        z-index: 10;
       }
       
       .modal-close:hover {
@@ -150,36 +167,68 @@ class Modal {
     document.head.appendChild(styles);
   }
   
-  setupEventListeners() {
-    // Fechar ao clicar no X
-    const closeBtn = this.modal.querySelector('.modal-close');
-    closeBtn.addEventListener('click', () => this.close());
+  open(content, options = {}) {
+    const modalId = options.id || `modal-${Date.now()}`;
     
-    // Fechar ao clicar no overlay
-    const overlay = this.modal.querySelector('.modal-overlay');
-    overlay.addEventListener('click', () => this.close());
-    
-    // Fechar com ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.modal.classList.contains('active')) {
-        this.close();
-      }
-    });
-  }
-  
-  open(content) {
-    const modalContent = document.getElementById('modalContent');
+    // Criar novo modal
+    const modal = this.createModalStructure(modalId);
+    const modalContent = modal.querySelector('.modal-content');
     modalContent.innerHTML = content;
     
-    this.modal.classList.add('active');
+    // Calcular z-index baseado na pilha
+    const zIndex = this.baseZIndex + (this.modals.length * 10);
+    modal.style.zIndex = zIndex;
+    
+    // Adicionar à pilha
+    this.modals.push(modalId);
+    
+    // Mostrar modal
+    modal.classList.add('active');
     document.body.style.overflow = 'hidden';
     
     // Focus no modal para acessibilidade
-    this.modal.focus();
+    modal.focus();
+    
+    return modalId;
   }
   
-  close() {
-    this.modal.classList.remove('active');
+  close(modalId) {
+    // Se não especificou ID, fecha o do topo
+    if (!modalId && this.modals.length > 0) {
+      modalId = this.modals[this.modals.length - 1];
+    }
+    
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    
+    // Remover da pilha
+    this.modals = this.modals.filter(id => id !== modalId);
+    
+    // Fechar modal
+    modal.classList.remove('active');
+    
+    // Remover do DOM após animação
+    setTimeout(() => {
+      modal.remove();
+    }, 300);
+    
+    // Se não há mais modais, restaurar scroll
+    if (this.modals.length === 0) {
+      document.body.style.overflow = '';
+    }
+  }
+  
+  closeTop() {
+    if (this.modals.length > 0) {
+      const topModalId = this.modals[this.modals.length - 1];
+      this.close(topModalId);
+    }
+  }
+  
+  closeAll() {
+    while (this.modals.length > 0) {
+      this.closeTop();
+    }
     document.body.style.overflow = '';
   }
 }
