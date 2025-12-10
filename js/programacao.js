@@ -219,31 +219,58 @@ class ProgramacaoManager {
     };
     
     const typeLabel = typeLabels[sessao.tipo] || 'Sessão';
-    const numAulas = sessao.aulas ? sessao.aulas.length : 0;
     
-    // Pegar foto do primeiro palestrante (se houver)
-    let featuredImage = 'https://placehold.co/400x300/2c5aa0/white?text=Sessão';
-    if (sessao.aulas && sessao.aulas.length > 0 && sessao.aulas[0].palestrante_foto) {
-      featuredImage = sessao.aulas[0].palestrante_foto;
+    // Coletar nomes (sem função)
+    const nomes = [];
+    
+    // Moderadores
+    if (sessao.moderadores && sessao.moderadores.length > 0) {
+      sessao.moderadores.forEach(m => nomes.push(m.nome));
     }
+    
+    // Palestrantes das aulas
+    if (sessao.aulas && sessao.aulas.length > 0) {
+      sessao.aulas.forEach(aula => {
+        if (aula.palestrante_nome && !nomes.includes(aula.palestrante_nome)) {
+          nomes.push(aula.palestrante_nome);
+        }
+      });
+    }
+    
+    // Debatedores
+    if (sessao.debatedores && sessao.debatedores.length > 0) {
+      sessao.debatedores.forEach(d => {
+        if (!nomes.includes(d.nome)) {
+          nomes.push(d.nome);
+        }
+      });
+    }
+    
+    // Núcleo Jovem
+    if (sessao.nucleo_jovem && sessao.nucleo_jovem.length > 0) {
+      sessao.nucleo_jovem.forEach(nj => {
+        if (!nomes.includes(nj.nome)) {
+          nomes.push(nj.nome);
+        }
+      });
+    }
+    
+    const nomesTexto = nomes.length > 0 ? nomes.join(', ') : 'A definir';
     
     return `
       <article class="sessao-card animate-on-scroll" data-sessao-id="${sessao.id}">
-        <div class="sessao-image-wrapper">
-          <img src="${featuredImage}" alt="${sessao.titulo}" class="sessao-img" loading="lazy">
-          <div class="sessao-type-badge ${sessao.tipo}">${typeLabel}</div>
+        <div class="sessao-header-badge ${sessao.tipo}">
+          ${sessao.titulo}
         </div>
         <div class="sessao-content">
           <div class="sessao-meta">
             <span class="sessao-time">⏰ ${Utils.formatTimeRange(sessao.horario_inicio, sessao.horario_fim)}</span>
             <span class="sessao-room">📍 ${sessao.sala}</span>
           </div>
-          <h3 class="sessao-title">${sessao.titulo}</h3>
-          ${sessao.descricao ? `<p class="sessao-description">${Utils.truncateText(sessao.descricao, 120)}</p>` : ''}
-          <div class="sessao-footer">
-            <span class="sessao-count">${numAulas} apresentação${numAulas !== 1 ? 'ões' : ''}</span>
-            <button class="sessao-btn">Ver Detalhes</button>
+          <div class="sessao-speakers">
+            ${Utils.truncateText(nomesTexto, 100)}
           </div>
+          <button class="sessao-btn-inline">Ver Detalhes</button>
         </div>
       </article>
     `;
