@@ -471,6 +471,7 @@ class ProgramacaoManager {
       </div>
     `;
     
+    // Abrir modal SOBRE o modal da sessão (stack)
     Utils.Modal.open(modalContent);
   }
 }
