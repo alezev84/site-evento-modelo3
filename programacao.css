@@ -532,6 +532,7 @@
   height: 250px;
   border-radius: 12px;
   object-fit: cover;
+  object-position: top;
   box-shadow: var(--shadow-md);
 }
 
@@ -676,6 +677,7 @@
     font-size: 1.4rem;
   }
 }
+
 
 
 
