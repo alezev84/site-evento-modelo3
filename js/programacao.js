@@ -1,384 +1,525 @@
-// ============================================
-// VARIÁVEIS GLOBAIS
-// ============================================
-let ACTIVE_DAY_NUMBER = 0;
-let ALL_PROGRAM_DAYS = [];
-const displayContainer = document.getElementById('schedule-display');
-const sessionModal = document.getElementById('session-modal');
-const speakerModal = document.getElementById('speaker-modal');
+// ========================================
+// PROGRAMACAO.JS - REFATORADO PARA JSON DEFINITIVO
+// ========================================
 
-// ============================================
-// FUNÇÕES DE MODAL (SESSÃO)
-// ============================================
-function closeModal() {
-    sessionModal.close();
-}
-
-function openModal() {
-    sessionModal.addEventListener('click', function handler(e) {
-        const rect = sessionModal.getBoundingClientRect();
-        if (e.clientX < rect.left || e.clientX > rect.right ||
-            e.clientY < rect.top || e.clientY > rect.bottom) {
-            sessionModal.close();
-            sessionModal.removeEventListener('click', handler);
-        }
-    });
-    sessionModal.showModal();
-}
-
-// ============================================
-// FUNÇÕES DE MODAL (PALESTRANTE - STACKABLE)
-// ============================================
-function closeSpeakerModal() {
-    speakerModal.close();
-}
-
-function openSpeakerProfile(encodedSpeakerData) {
-    const speaker = JSON.parse(decodeURIComponent(encodedSpeakerData));
+class ProgramacaoManager {
+  constructor() {
+    // Elementos DOM
+    this.programacaoGrid = document.getElementById('programacaoGrid');
+    this.searchInput = document.getElementById('searchInput');
+    this.dayFilters = document.querySelectorAll('.day-filter');
+    this.typeFilters = document.querySelectorAll('.type-filter');
     
-    const photoEl = document.getElementById('speaker-photo');
-    const nameEl = document.getElementById('speaker-name');
-    const institutionEl = document.getElementById('speaker-institution');
-    const curriculumEl = document.getElementById('speaker-curriculum');
-
-    // Placeholder para foto ausente (SVG inline base64)
-    const placeholderPhoto = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"%3E%3Crect fill="%23cbd5e0" width="160" height="160"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%234a5568" font-family="Arial, sans-serif" font-size="14" font-weight="600"%3ESem Foto%3C/text%3E%3C/svg%3E';
+    // Dados
+    this.programacaoData = null;
+    this.filteredSessoes = [];
     
-    photoEl.src = speaker.foto || placeholderPhoto;
-    photoEl.alt = `Foto de ${speaker.nome || 'Palestrante'}`;
-    nameEl.innerText = speaker.nome || 'Nome Indisponível';
-    institutionEl.innerText = speaker.instituicao || speaker.cidade || 'Instituição não informada';
+    // Filtros ativos
+    this.currentDay = 'todos';
+    this.currentType = 'todos';
+    this.currentSearch = '';
     
-    // Placeholder para currículo ausente
-    let curriculumText = speaker.curriculo || 'Informações em breve...';
-    curriculumEl.innerHTML = curriculumText.split('\n').map(line => `<p>${line}</p>`).join('');
-    
-    speakerModal.showModal();
-}
-
-// ============================================
-// RENDERIZA LISTA DE PARTICIPANTES (CLICÁVEL)
-// ============================================
-function renderParticipantsList(participants, role) {
-    if (!participants || participants.length === 0) {
-        return '';
+    this.init();
+  }
+  
+  async init() {
+    try {
+      // Mostrar loading
+      Utils.showLoading(this.programacaoGrid);
+      
+      // Carregar JSON
+      await this.loadData();
+      
+      // Atualizar filtros de dias dinamicamente
+      this.updateDayFilters();
+      
+      // Setup event listeners
+      this.setupEventListeners();
+      
+      // Renderizar
+      this.filterAndRender();
+      
+      console.log('✅ Programação inicializada');
+      
+    } catch (error) {
+      console.error('❌ Erro ao inicializar:', error);
+      Utils.showError(this.programacaoGrid, 'Erro ao carregar programação');
     }
-
-    const validParticipants = participants.filter(p => p.nome);
-
-    if (validParticipants.length === 0) {
-        return '';
+  }
+  
+  async loadData() {
+    try {
+      // Carregar programação (NOVO FORMATO - Array direto)
+      this.programacaoData = await Utils.JSONLoader.load('./data/programacao.json');
+      
+      console.log(`✅ ${this.programacaoData.length} dias carregados`);
+      
+    } catch (error) {
+      console.error('❌ Erro ao carregar dados:', error);
+      throw error;
     }
-
-    const listItems = validParticipants.map(p => {
-        const speakerJsonString = encodeURIComponent(JSON.stringify(p));
-        return `
-            <li>
-                <strong>${role}:</strong> 
-                <button class="speaker-btn" onclick="openSpeakerProfile('${speakerJsonString}')">
-                    ${p.nome}
-                </button>
-            </li>
-        `;
-    }).join('');
-
-    return listItems;
-}
-
-// ============================================
-// INICIALIZAÇÃO
-// ============================================
-function initSchedule(data) {
-    ALL_PROGRAM_DAYS = data.map(day => {
-        const sessionsByRoom = day.sessoes.reduce((acc, session) => {
-            const roomName = session.sala || 'Sala Não Definida';
-            if (!acc[roomName]) {
-                acc[roomName] = [];
-            }
-            acc[roomName].push(session);
-            return acc;
-        }, {});
-
-        for (const room in sessionsByRoom) {
-            sessionsByRoom[room].sort((a, b) => a.horario_inicio.localeCompare(b.horario_inicio));
-        }
-
-        return {
-            numero: day.numero,
-            data: day.data,
-            dia_semana: day.dia_semana,
-            layout: day.layout || 'list',
-            sessionsByRoom: sessionsByRoom,
-            allSessions: day.sessoes
-        };
+  }
+  
+  updateDayFilters() {
+    // Atualizar botões de filtro de dias dinamicamente
+    const filterButtons = document.querySelector('.day-filter').parentElement;
+    filterButtons.innerHTML = '<button class="day-filter active" data-day="todos">Todos</button>';
+    
+    this.programacaoData.forEach(dia => {
+      const btn = document.createElement('button');
+      btn.className = 'day-filter';
+      btn.dataset.day = dia.numero;
+      btn.textContent = dia.data;
+      filterButtons.appendChild(btn);
     });
-
-    if (ALL_PROGRAM_DAYS.length > 0) {
-        ACTIVE_DAY_NUMBER = ALL_PROGRAM_DAYS[0].numero;
-        renderDayNavigation(ALL_PROGRAM_DAYS);
-        document.getElementById('search-input').addEventListener('input', filterAndDisplaySchedule);
-        filterAndDisplaySchedule();
-    } else {
-        displayContainer.innerHTML = '<div class="empty-state"><p>Programação vazia.</p></div>';
+    
+    // Reatribuir variável
+    this.dayFilters = document.querySelectorAll('.day-filter');
+  }
+  
+  setupEventListeners() {
+    // Busca com debounce
+    if (this.searchInput) {
+      const debouncedSearch = Utils.debounce((value) => {
+        this.currentSearch = value.toLowerCase().trim();
+        this.filterAndRender();
+      }, 300);
+      
+      this.searchInput.addEventListener('input', (e) => {
+        debouncedSearch(e.target.value);
+      });
     }
-}
-
-// ============================================
-// NAVEGAÇÃO DE DIAS
-// ============================================
-function renderDayNavigation(days) {
-    const navContainer = document.getElementById('days-nav');
-    navContainer.innerHTML = '';
-
-    days.forEach((day) => {
-        const isActive = day.numero === ACTIVE_DAY_NUMBER;
-        const btn = document.createElement('button');
-        btn.className = `day-btn ${isActive ? 'active' : ''}`;
-        btn.innerHTML = `
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; margin-right: 6px; vertical-align: middle;">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="16" y1="2" x2="16" y2="6"></line>
-                <line x1="8" y1="2" x2="8" y2="6"></line>
-                <line x1="3" y1="10" x2="21" y2="10"></line>
-            </svg>
-            ${day.data} - ${day.dia_semana}
-        `;
-        btn.onclick = (e) => {
-            document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
-            e.currentTarget.classList.add('active');
-            ACTIVE_DAY_NUMBER = day.numero;
-            filterAndDisplaySchedule();
-        };
-        navContainer.appendChild(btn);
+    
+    // Filtros de dia (event delegation)
+    document.querySelector('.filter-buttons').addEventListener('click', (e) => {
+      if (e.target.classList.contains('day-filter')) {
+        this.dayFilters.forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        this.currentDay = e.target.dataset.day;
+        this.filterAndRender();
+      }
     });
-}
-
-// ============================================
-// FILTRO E DISPLAY
-// ============================================
-function filterAndDisplaySchedule() {
-    const selectedDay = ALL_PROGRAM_DAYS.find(d => d.numero === ACTIVE_DAY_NUMBER);
-    if (!selectedDay) return;
-
-    const searchTerm = document.getElementById('search-input').value.toLowerCase();
-    let filteredSessions = selectedDay.allSessions;
-
-    if (searchTerm) {
-        filteredSessions = filteredSessions.filter(session => {
-            const sessionText = [
-                session.titulo,
-                session.grade,
-                session.sala,
-                ...(session.moderadores || []).map(m => m.nome),
-                ...(session.debatedores || []).map(d => d.nome),
-                ...(session.aulas || []).flatMap(aula => (aula.palestrantes || []).map(p => p.nome)),
-                ...(session.nucleo_jovem || []).map(p => p.nome),
-                ...(session.aulas || []).map(aula => aula.titulo_aula || aula.titulo)
-            ].join(' ').toLowerCase();
-
-            return sessionText.includes(searchTerm);
+    
+    // Filtros de tipo
+    this.typeFilters.forEach(btn => {
+      btn.addEventListener('click', () => {
+        this.typeFilters.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        this.currentType = btn.dataset.type;
+        this.filterAndRender();
+      });
+    });
+  }
+  
+  filterAndRender() {
+    // Coletar todas as sessões de todos os dias
+    let allSessoes = [];
+    
+    this.programacaoData.forEach(dia => {
+      dia.sessoes.forEach(sessao => {
+        allSessoes.push({
+          ...sessao,
+          dia_numero: dia.numero,
+          dia_data: dia.data,
+          dia_semana: dia.dia_semana
         });
-    }
-
-    renderFilteredResults(selectedDay, filteredSessions);
-}
-
-// ============================================
-// RENDERIZA RESULTADOS FILTRADOS
-// ============================================
-function renderFilteredResults(day, sessions) {
-    displayContainer.innerHTML = '';
-
-    if (sessions.length === 0) {
-        displayContainer.innerHTML = `
-            <div class="empty-state">
-                <p>Nenhuma sessão encontrada para os critérios aplicados no dia ${day.data}.</p>
-            </div>
-        `;
-        return;
-    }
-
-    const sessionsByRoomFiltered = sessions.reduce((acc, session) => {
-        const roomName = session.sala || 'Sala Não Definida';
-        if (!acc[roomName]) {
-            acc[roomName] = [];
-        }
-        acc[roomName].push(session);
-        return acc;
-    }, {});
-
-    const roomNames = Object.keys(sessionsByRoomFiltered).sort();
-
-    roomNames.forEach(roomName => {
-        const sessionsInRoom = sessionsByRoomFiltered[roomName];
-
-        let roomHTML = `
-            <div class="room-group">
-                <h3 class="room-title">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
-                    </svg>
-                    ${roomName}
-                </h3>
-                <div class="sessions-container">
-        `;
-
-        roomHTML += sessionsInRoom.map(session => renderSessionCard(session)).join('');
-        roomHTML += `</div></div>`;
-        displayContainer.insertAdjacentHTML('beforeend', roomHTML);
+      });
     });
-}
-
-// ============================================
-// RENDERIZA CARD DE SESSÃO
-// ============================================
-function renderSessionCard(session) {
-    const moderators = (session.moderadores || []).map(m => m.nome).filter(Boolean);
-    const debatedores = (session.debatedores || []).map(d => d.nome).filter(Boolean);
-    const speakers = (session.aulas || []).flatMap(aula => (aula.palestrantes || []).map(p => p.nome)).filter(Boolean);
-
-    const allNames = new Set([...moderators, ...debatedores, ...speakers]);
-    const allParticipants = Array.from(allNames);
     
-    const participantsText = allParticipants.length > 0 
-        ? allParticipants.slice(0, 3).join(', ') + (allParticipants.length > 3 ? '...' : '')
-        : 'Participantes: A definir';
-
-    const sessionJsonString = encodeURIComponent(JSON.stringify(session));
-
-    const horarioInicio = session.horario_inicio ? session.horario_inicio.substring(0, 5) : 'A definir';
-    const horarioFim = session.horario_fim ? session.horario_fim.substring(0, 5) : 'A definir';
-
+    // Aplicar filtros
+    this.filteredSessoes = allSessoes.filter(sessao => {
+      // Filtro de dia
+      const matchesDay = this.currentDay === 'todos' || 
+                        sessao.dia_numero === parseInt(this.currentDay);
+      
+      // Filtro de tipo
+      const matchesType = this.currentType === 'todos' || 
+                         sessao.tipo === this.currentType;
+      
+      // Filtro de busca
+      const searchLower = this.currentSearch;
+      const matchesSearch = !searchLower ||
+                           sessao.titulo.toLowerCase().includes(searchLower) ||
+                           sessao.sala.toLowerCase().includes(searchLower) ||
+                           this.searchInAulas(sessao.aulas, searchLower) ||
+                           this.searchInPessoas(sessao, searchLower);
+      
+      return matchesDay && matchesType && matchesSearch;
+    });
+    
+    // Renderizar
+    this.render();
+  }
+  
+  searchInAulas(aulas, searchTerm) {
+    if (!aulas || aulas.length === 0) return false;
+    return aulas.some(aula => {
+      const titulo = aula.titulo_aula || aula.titulo || '';
+      const palestrantes = aula.palestrantes || [];
+      return titulo.toLowerCase().includes(searchTerm) ||
+             palestrantes.some(p => p.nome.toLowerCase().includes(searchTerm));
+    });
+  }
+  
+  searchInPessoas(sessao, searchTerm) {
+    // Buscar em moderadores
+    if (sessao.moderadores && sessao.moderadores.some(m => 
+      m.nome.toLowerCase().includes(searchTerm)
+    )) return true;
+    
+    // Buscar em debatedores
+    if (sessao.debatedores && sessao.debatedores.some(d => 
+      d.nome.toLowerCase().includes(searchTerm)
+    )) return true;
+    
+    // Buscar em núcleo jovem
+    if (sessao.nucleo_jovem && sessao.nucleo_jovem.some(nj => 
+      nj.nome.toLowerCase().includes(searchTerm)
+    )) return true;
+    
+    return false;
+  }
+  
+  render() {
+    if (this.filteredSessoes.length === 0) {
+      Utils.showEmptyState(this.programacaoGrid, 'Nenhuma sessão encontrada');
+      return;
+    }
+    
+    // Agrupar por dia
+    const groupedByDay = this.groupByDay(this.filteredSessoes);
+    
+    let html = '';
+    
+    groupedByDay.forEach(group => {
+      html += `
+        <div class="day-group">
+          <h2 class="day-title">${group.dia_data} - ${group.dia_semana}</h2>
+          <div class="sessoes-grid">
+            ${group.sessoes.map(sessao => this.createSessaoCard(sessao)).join('')}
+          </div>
+        </div>
+      `;
+    });
+    
+    this.programacaoGrid.innerHTML = html;
+    
+    // Adicionar event listeners aos cards
+    this.addCardListeners();
+  }
+  
+  groupByDay(sessoes) {
+    const grouped = {};
+    
+    sessoes.forEach(sessao => {
+      const key = sessao.dia_numero;
+      if (!grouped[key]) {
+        grouped[key] = {
+          dia_numero: sessao.dia_numero,
+          dia_data: sessao.dia_data,
+          dia_semana: sessao.dia_semana,
+          sessoes: []
+        };
+      }
+      grouped[key].sessoes.push(sessao);
+    });
+    
+    // Converter para array e ordenar por dia
+    return Object.values(grouped).sort((a, b) => a.dia_numero - b.dia_numero);
+  }
+  
+  createSessaoCard(sessao) {
+    const typeLabels = {
+      'Mesa': 'Mesa Redonda',
+      'Sessão Científica': 'Sessão Científica',
+      'keynote': 'Palestra Magna',
+      'symposium': 'Simpósio',
+      'workshop': 'Workshop'
+    };
+    
+    const typeLabel = typeLabels[sessao.tipo] || sessao.tipo || 'Sessão';
+    
+    // Coletar TODOS os nomes (sem duplicatas)
+    const allNames = new Set();
+    
+    // Moderadores
+    (sessao.moderadores || []).forEach(m => allNames.add(m.nome));
+    
+    // Debatedores
+    (sessao.debatedores || []).forEach(d => allNames.add(d.nome));
+    
+    // Núcleo Jovem
+    (sessao.nucleo_jovem || []).forEach(nj => allNames.add(nj.nome));
+    
+    // Palestrantes das aulas
+    (sessao.aulas || []).forEach(aula => {
+      (aula.palestrantes || []).forEach(p => allNames.add(p.nome));
+    });
+    
+    const nomesArray = Array.from(allNames);
+    const nomesTexto = nomesArray.length > 0 ? nomesArray.join(', ') : 'A definir';
+    
     return `
-        <article class="session-card">
-            <div class="session-content">
-                <span class="session-tag">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                    ${horarioInicio} - ${horarioFim}
-                </span>
-                <h4 class="session-title">${session.titulo || 'Título A Definir'}</h4>
-                <p class="session-participants">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0;">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="9" cy="7" r="4"></circle>
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                    </svg>
-                    ${participantsText}
-                </p>
-            </div>
-            <button class="btn-details" onclick="populateAndOpenModal('${sessionJsonString}')">
-                Ver Detalhes
-            </button>
-        </article>
+      <article class="sessao-card" data-sessao-id="${sessao.id}">
+        <div class="sessao-header-badge ${sessao.tipo.toLowerCase().replace(/\s+/g, '-')}">
+          ${sessao.titulo}
+        </div>
+        <div class="sessao-content">
+          <div class="sessao-meta">
+            <span class="sessao-time">⏰ ${this.formatTime(sessao.horario_inicio)} - ${this.formatTime(sessao.horario_fim)}</span>
+            <span class="sessao-room">📍 ${sessao.sala}</span>
+          </div>
+          <div class="sessao-speakers">
+            ${Utils.truncateText(nomesTexto, 120)}
+          </div>
+          <button class="sessao-btn-inline">Ver Detalhes</button>
+        </div>
+      </article>
     `;
-}
-
-// ============================================
-// POPULA E ABRE MODAL DE SESSÃO
-// ============================================
-function populateAndOpenModal(encodedSessionData) {
-    const session = JSON.parse(decodeURIComponent(encodedSessionData));
-
-    document.getElementById('modal-title').innerText = session.titulo || 'Detalhes da Sessão';
-
-    const modalidade = session.modalidade || 'Modalidade A Definir';
-    const horarioInicio = session.horario_inicio ? session.horario_inicio.substring(0, 5) : 'A definir';
-    const horarioFim = session.horario_fim ? session.horario_fim.substring(0, 5) : 'A definir';
-
-    // NOVO: Agrupando Moderadores, Debatedores e Núcleo Jovem JUNTOS
-    const moderadoresHTML = renderParticipantsList(session.moderadores, 'Moderador(a)');
-    const debatedoresHTML = renderParticipantsList(session.debatedores, 'Debatedor(es)');
-    const nucleoJovemHTML = renderParticipantsList(session.nucleo_jovem, 'Núcleo Jovem');
-
-    // Monta o HTML da Mesa apenas se houver participantes
-    const mesaHTML = (moderadoresHTML || debatedoresHTML || nucleoJovemHTML)
-        ? `
-            <div class="mesa-box">
-                <h5 class="mesa-box-title">Integrantes da Mesa</h5>
-                <p class="mesa-box-subtitle">Clique no convidado para ver detalhes</p>
-                <ul class="mesa-list">
-                    ${moderadoresHTML}
-                    ${debatedoresHTML}
-                    ${nucleoJovemHTML}
-                </ul>
-            </div>
-        `
-        : '';
-
-    // Lista de Aulas/Cronograma
-    const aulasHTML = (session.aulas && session.aulas.length > 0)
-        ? session.aulas.map(aula => {
-            let aulaParticipantsHTML = '';
-            if (aula.palestrantes && aula.palestrantes.length > 0) {
-                aulaParticipantsHTML = aula.palestrantes.map(p => {
-                    const speakerJsonString = encodeURIComponent(JSON.stringify(p));
-                    return `
-                        <button class="speaker-btn" onclick="openSpeakerProfile('${speakerJsonString}')" style="margin-top: 6px; display: block;">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; margin-right: 4px; vertical-align: middle;">
-                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
-                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
-                                <line x1="12" y1="19" x2="12" y2="23"></line>
-                                <line x1="8" y1="23" x2="16" y2="23"></line>
-                            </svg>
-                            ${p.nome || 'Palestrante'}
-                        </button>
-                    `;
-                }).join('');
-            }
-
-            const aulaTitle = aula.titulo_aula || aula.titulo || 'Atividade A Definir';
-            const aulaInicio = aula.horario_inicio ? aula.horario_inicio.substring(0, 5) : '';
-
-            return `
-                <li class="timeline-item">
-                    <strong class="timeline-time">${aulaInicio}</strong>: ${aulaTitle}
-                    ${aulaParticipantsHTML}
-                </li>
-            `;
-        }).join('')
-        : '<li class="timeline-item">Cronograma detalhado não disponível.</li>';
-
-    const content = `
-        <ul class="modal-list">
-            <li><strong>Sala:</strong> ${session.sala || 'A definir'} (${modalidade})</li>
-            <li><strong>Horário:</strong> ${horarioInicio} - ${horarioFim}</li>
-        </ul>
-
-        ${mesaHTML}
-
-        <div class="timeline-section">
-            <h5 class="timeline-title">📚 Cronograma Detalhado</h5>
-            <ul class="timeline">${aulasHTML}</ul>
+  }
+  
+  formatTime(timeString) {
+    if (!timeString) return 'A definir';
+    return timeString.substring(0, 5);
+  }
+  
+  addCardListeners() {
+    const cards = this.programacaoGrid.querySelectorAll('.sessao-card');
+    
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const sessaoId = card.dataset.sessaoId;
+        this.openSessaoModal(sessaoId);
+      });
+      
+      // Keyboard accessibility
+      card.setAttribute('tabindex', '0');
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const sessaoId = card.dataset.sessaoId;
+          this.openSessaoModal(sessaoId);
+        }
+      });
+    });
+    
+    // Animar cards
+    Utils.initAnimateOnScroll('.animate-on-scroll');
+  }
+  
+  openSessaoModal(sessaoId) {
+    // Encontrar sessão
+    let sessao = null;
+    
+    for (const dia of this.programacaoData) {
+      const found = dia.sessoes.find(s => s.id === sessaoId);
+      if (found) {
+        sessao = {
+          ...found,
+          dia_numero: dia.numero,
+          dia_data: dia.data,
+          dia_semana: dia.dia_semana
+        };
+        break;
+      }
+    }
+    
+    if (!sessao) {
+      console.error('Sessão não encontrada:', sessaoId);
+      return;
+    }
+    
+    // Gerar conteúdo do modal
+    const modalContent = this.generateSessaoModalContent(sessao);
+    
+    // Abrir modal
+    Utils.Modal.open(modalContent);
+  }
+  
+  generateSessaoModalContent(sessao) {
+    const typeLabels = {
+      'Mesa': 'Mesa Redonda',
+      'Sessão Científica': 'Sessão Científica',
+      'keynote': 'Palestra Magna',
+      'symposium': 'Simpósio',
+      'workshop': 'Workshop'
+    };
+    
+    const typeLabel = typeLabels[sessao.tipo] || sessao.tipo || 'Sessão';
+    
+    let html = `
+      <div class="modal-sessao">
+        <div class="modal-header">
+          <span class="modal-type-badge ${sessao.tipo.toLowerCase().replace(/\s+/g, '-')}">${typeLabel}</span>
+          <h2 class="modal-title">${sessao.titulo}</h2>
+          <div class="modal-meta">
+            <span class="modal-date">📅 ${sessao.dia_data} - ${sessao.dia_semana}</span>
+            <span class="modal-time">⏰ ${this.formatTime(sessao.horario_inicio)} - ${this.formatTime(sessao.horario_fim)}</span>
+            <span class="modal-room">📍 ${sessao.sala}</span>
+          </div>
         </div>
     `;
-
-    document.getElementById('modal-content').innerHTML = content;
-    openModal();
+    
+    // ===================================
+    // NOVO: INTEGRANTES DA MESA (AGRUPADOS)
+    // ===================================
+    const temModerador = sessao.moderadores && sessao.moderadores.length > 0;
+    const temDebatedor = sessao.debatedores && sessao.debatedores.length > 0;
+    const temNucleoJovem = sessao.nucleo_jovem && sessao.nucleo_jovem.length > 0;
+    
+    if (temModerador || temDebatedor || temNucleoJovem) {
+      html += `
+        <div class="modal-section">
+          <h3 class="modal-section-title">Integrantes da Mesa</h3>
+          <div class="modal-pessoas-grid">
+      `;
+      
+      // Moderadores
+      if (temModerador) {
+        sessao.moderadores.forEach(mod => {
+          html += this.createPessoaCard(mod, 'Moderador(a)');
+        });
+      }
+      
+      // Debatedores
+      if (temDebatedor) {
+        sessao.debatedores.forEach(deb => {
+          html += this.createPessoaCard(deb, 'Debatedor(a)');
+        });
+      }
+      
+      // Núcleo Jovem
+      if (temNucleoJovem) {
+        sessao.nucleo_jovem.forEach(nj => {
+          html += this.createPessoaCard(nj, 'Núcleo Jovem');
+        });
+      }
+      
+      html += `
+          </div>
+        </div>
+      `;
+    }
+    
+    // ===================================
+    // AULAS/APRESENTAÇÕES (CRONOGRAMA)
+    // ===================================
+    if (sessao.aulas && sessao.aulas.length > 0) {
+      html += `
+        <div class="modal-section">
+          <h3 class="modal-section-title">Programação / Cronograma</h3>
+          <div class="modal-aulas">
+            ${sessao.aulas.map(aula => this.createAulaItem(aula)).join('')}
+          </div>
+        </div>
+      `;
+    }
+    
+    html += `</div>`;
+    
+    return html;
+  }
+  
+  createPessoaCard(pessoa, role) {
+    const foto = pessoa.foto || 'https://via.placeholder.com/100x100/cccccc/666666?text=Sem+Foto';
+    const curriculo = pessoa.curriculo || '';
+    
+    return `
+      <div class="modal-pessoa-card" ${curriculo ? `data-pessoa='${this.encodeJSON(pessoa)}'` : ''}>
+        <img src="${foto}" alt="${pessoa.nome}" class="modal-pessoa-foto">
+        <div class="modal-pessoa-info">
+          <p style="font-size: 0.75rem; color: var(--accent-color); font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">${role}</p>
+          <h4 class="modal-pessoa-nome">${pessoa.nome}</h4>
+          ${pessoa.instituicao ? `<p class="modal-pessoa-instituicao">${pessoa.instituicao}</p>` : ''}
+          ${curriculo ? `<button class="modal-pessoa-btn">Ver Currículo</button>` : ''}
+        </div>
+      </div>
+    `;
+  }
+  
+  createAulaItem(aula) {
+    const titulo = aula.titulo_aula || aula.titulo || 'Atividade A Definir';
+    const palestrantes = aula.palestrantes || [];
+    
+    let palestrantesHTML = '';
+    
+    if (palestrantes.length > 0) {
+      palestrantesHTML = palestrantes.map(p => {
+        const foto = p.foto || 'https://via.placeholder.com/70x70/cccccc/666666?text=Sem+Foto';
+        const curriculo = p.curriculo || '';
+        
+        return `
+          <div class="modal-aula-palestrante" ${curriculo ? `data-pessoa='${this.encodeJSON(p)}'` : ''}>
+            <img src="${foto}" alt="${p.nome}" class="modal-aula-foto">
+            <span class="modal-aula-nome">${p.nome}</span>
+            ${curriculo ? `<button class="modal-aula-btn">Ver Currículo</button>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+    
+    return `
+      <div class="modal-aula-item">
+        <div class="modal-aula-time">
+          <span>${this.formatTime(aula.horario_inicio)} - ${this.formatTime(aula.horario_fim)}</span>
+        </div>
+        <div class="modal-aula-content">
+          <h4 class="modal-aula-titulo">${titulo}</h4>
+          ${palestrantesHTML}
+        </div>
+      </div>
+    `;
+  }
+  
+  encodeJSON(obj) {
+    return encodeURIComponent(JSON.stringify(obj));
+  }
+  
+  openPalestranteModal(pessoa) {
+    const foto = pessoa.foto || 'https://via.placeholder.com/200x250/cccccc/666666?text=Sem+Foto';
+    const curriculo = pessoa.curriculo || 'Informações em breve...';
+    const local = [pessoa.cidade, pessoa.estado, pessoa.pais].filter(Boolean).join(', ') || 'Localidade não informada';
+    
+    const modalContent = `
+      <div class="modal-palestrante">
+        <div class="modal-palestrante-header">
+          <img src="${foto}" alt="${pessoa.nome}" class="modal-palestrante-foto">
+          <div class="modal-palestrante-info">
+            <h2 class="modal-palestrante-nome">${pessoa.nome}</h2>
+            ${pessoa.instituicao ? `<p class="modal-palestrante-instituicao">${pessoa.instituicao}</p>` : ''}
+            <p class="modal-palestrante-local">📍 ${local}</p>
+          </div>
+        </div>
+        <div class="modal-palestrante-body">
+          <h3>Currículo</h3>
+          <p class="modal-palestrante-cv">${curriculo}</p>
+        </div>
+      </div>
+    `;
+    
+    // Abrir modal SOBRE o modal da sessão (stack)
+    Utils.Modal.open(modalContent);
+  }
 }
 
-// ============================================
-// FETCH DO JSON
-// ============================================
+// ========================================
+// Event Delegation para botões de palestrante no modal
+// ========================================
+document.addEventListener('click', (e) => {
+  if (e.target.matches('.modal-pessoa-btn, .modal-aula-btn')) {
+    const card = e.target.closest('[data-pessoa]');
+    if (card && window.programacaoManager) {
+      const pessoaJSON = decodeURIComponent(card.dataset.pessoa);
+      const pessoa = JSON.parse(pessoaJSON);
+      window.programacaoManager.openPalestranteModal(pessoa);
+    }
+  }
+});
+
+// ========================================
+// INICIALIZAÇÃO
+// ========================================
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('./data/programacao.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao carregar programacao.json');
-            }
-            return response.json();
-        })
-        .then(data => initSchedule(data))
-        .catch(error => {
-            console.error('Falha na inicialização:', error);
-            displayContainer.innerHTML = 
-                '<div class="empty-state" style="color: #e53e3e; padding: 40px 20px;">' +
-                '<p><strong>⚠️ ERRO:</strong> Não foi possível carregar a programação.</p>' +
-                '<p style="font-size: 0.9rem; margin-top: 10px;">Certifique-se de que o arquivo "programacao.json" está na pasta "data/".</p>' +
-                '</div>';
-        });
+  window.programacaoManager = new ProgramacaoManager();
+  console.log('✅ Programação carregada');
 });
