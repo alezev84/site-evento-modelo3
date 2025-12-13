@@ -67,9 +67,11 @@
 }
 
 .search-box {
-  max-width: 600px;
-  margin: 0 auto;
-  position: relative;
+    width: 50%;
+    margin: 5px auto;
+    position: relative;
+    box-shadow: var(--shadow-lg);
+    border-radius: 25px;
 }
 
 .search-input {
@@ -192,7 +194,7 @@
   background: var(--white);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
   transition: var(--transition-normal);
   cursor: pointer;
   display: flex;
@@ -605,9 +607,9 @@
     position: static;
   }
   
-  .search-box {
-    margin-bottom: var(--spacing-md);
-  }
+    .search-box {
+        width: 100%;
+    }
   
   .filter-groups {
     flex-direction: column;
@@ -679,6 +681,7 @@
     font-size: 1.4rem;
   }
 }
+
 
 
 
