@@ -258,7 +258,7 @@ class ProgramacaoManager {
     const nomesTexto = nomes.length > 0 ? nomes.join(', ') : 'A definir';
     
     return `
-      <article class="sessao-card animate-on-scroll" data-sessao-id="${sessao.id}">
+      <article class="sessao-card" data-sessao-id="${sessao.id}">
         <div class="sessao-header-badge ${sessao.tipo}">
           ${sessao.titulo}
         </div>
