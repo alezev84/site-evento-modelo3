@@ -526,8 +526,7 @@
   display: grid;
   grid-template-columns: 200px 1fr;
   gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-lg);
-  padding-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-sm);
   border-bottom: 2px solid var(--bg-light);
 }
 
@@ -581,7 +580,6 @@
 .modal-palestrante-body h3 {
   font-size: 1.4rem;
   color: var(--primary-color);
-  margin-bottom: var(--spacing-md);
 }
 
 .modal-palestrante-cv {
@@ -681,5 +679,6 @@
     font-size: 1.4rem;
   }
 }
+
 
 
