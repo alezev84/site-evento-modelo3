@@ -342,49 +342,25 @@ class ProgramacaoManager {
     
     let html = `
       <div class="modal-sessao">
-        <div class="modal-header-compact">
+        <div class="modal-header">
           <span class="modal-type-badge ${sessao.tipo}">${typeLabel}</span>
-          <h2 class="modal-title-compact">${sessao.titulo}</h2>
-          <div class="modal-meta-compact">
-            <span>📅 ${Utils.formatDateBR(sessao.data_completa)}</span>
-            <span>⏰ ${Utils.formatTimeRange(sessao.horario_inicio, sessao.horario_fim)}</span>
-            <span>📍 ${sessao.sala}</span>
+          <h2 class="modal-title">${sessao.titulo}</h2>
+          <div class="modal-meta">
+            <span class="modal-date">📅 ${Utils.formatDateBR(sessao.data_completa)}</span>
+            <span class="modal-time">⏰ ${Utils.formatTimeRange(sessao.horario_inicio, sessao.horario_fim)}</span>
+            <span class="modal-room">📍 ${sessao.sala}</span>
           </div>
-          ${sessao.descricao ? `<p class="modal-description-compact">${sessao.descricao}</p>` : ''}
+          ${sessao.descricao ? `<p class="modal-description">${sessao.descricao}</p>` : ''}
         </div>
     `;
     
-    // JUNTAR TODOS (Moderadores + Debatedores + Núcleo Jovem) no topo
-    const todasPessoas = [];
-    
     // Moderadores
     if (sessao.moderadores && sessao.moderadores.length > 0) {
-      sessao.moderadores.forEach(mod => {
-        todasPessoas.push({ ...mod, funcao: 'Moderador' });
-      });
-    }
-    
-    // Debatedores
-    if (sessao.debatedores && sessao.debatedores.length > 0) {
-      sessao.debatedores.forEach(deb => {
-        todasPessoas.push({ ...deb, funcao: 'Debatedor' });
-      });
-    }
-    
-    // Núcleo Jovem
-    if (sessao.nucleo_jovem && sessao.nucleo_jovem.length > 0) {
-      sessao.nucleo_jovem.forEach(nj => {
-        todasPessoas.push({ ...nj, funcao: 'Núcleo Jovem' });
-      });
-    }
-    
-    // Renderizar todas as pessoas juntas
-    if (todasPessoas.length > 0) {
       html += `
-        <div class="modal-section-compact">
-          <h3 class="modal-section-title-compact">Participantes</h3>
-          <div class="modal-pessoas-grid-compact">
-            ${todasPessoas.map(pessoa => this.createPessoaCardCompact(pessoa)).join('')}
+        <div class="modal-section">
+          <h3 class="modal-section-title">Moderação</h3>
+          <div class="modal-pessoas-grid">
+            ${sessao.moderadores.map(mod => this.createPessoaCard(mod, 'moderador')).join('')}
           </div>
         </div>
       `;
@@ -393,10 +369,34 @@ class ProgramacaoManager {
     // Aulas/Apresentações
     if (sessao.aulas && sessao.aulas.length > 0) {
       html += `
-        <div class="modal-section-compact">
-          <h3 class="modal-section-title-compact">Programação</h3>
-          <div class="modal-aulas-compact">
-            ${sessao.aulas.map(aula => this.createAulaItemCompact(aula)).join('')}
+        <div class="modal-section">
+          <h3 class="modal-section-title">Programação</h3>
+          <div class="modal-aulas">
+            ${sessao.aulas.map(aula => this.createAulaItem(aula)).join('')}
+          </div>
+        </div>
+      `;
+    }
+    
+    // Debatedores
+    if (sessao.debatedores && sessao.debatedores.length > 0) {
+      html += `
+        <div class="modal-section">
+          <h3 class="modal-section-title">Debatedores</h3>
+          <div class="modal-pessoas-grid">
+            ${sessao.debatedores.map(deb => this.createPessoaCard(deb, 'debatedor')).join('')}
+          </div>
+        </div>
+      `;
+    }
+    
+    // Núcleo Jovem
+    if (sessao.nucleo_jovem && sessao.nucleo_jovem.length > 0) {
+      html += `
+        <div class="modal-section">
+          <h3 class="modal-section-title">Núcleo Jovem</h3>
+          <div class="modal-pessoas-grid">
+            ${sessao.nucleo_jovem.map(nj => this.createPessoaCard(nj, 'nucleo-jovem')).join('')}
           </div>
         </div>
       `;
@@ -407,34 +407,33 @@ class ProgramacaoManager {
     return html;
   }
   
-  createPessoaCardCompact(pessoa) {
+  createPessoaCard(pessoa, role) {
     const palestrante = this.getPalestranteById(pessoa.palestrante_id);
     
     return `
-      <div class="modal-pessoa-card-compact">
-        <img src="${pessoa.foto}" alt="${pessoa.nome}" class="modal-pessoa-foto-compact">
-        <div class="modal-pessoa-info-compact">
-          <span class="modal-pessoa-funcao-compact">${pessoa.funcao}</span>
-          <h4 class="modal-pessoa-nome-compact">${pessoa.nome}</h4>
-          ${pessoa.instituicao ? `<p class="modal-pessoa-instituicao-compact">${pessoa.instituicao}</p>` : ''}
-          ${palestrante ? `<button class="modal-pessoa-btn-compact" data-palestrante-id="${pessoa.palestrante_id}">Ver Currículo</button>` : ''}
+      <div class="modal-pessoa-card" data-palestrante-id="${pessoa.palestrante_id}">
+        <img src="${pessoa.foto}" alt="${pessoa.nome}" class="modal-pessoa-foto">
+        <div class="modal-pessoa-info">
+          <h4 class="modal-pessoa-nome">${pessoa.nome}</h4>
+          ${pessoa.instituicao ? `<p class="modal-pessoa-instituicao">${pessoa.instituicao}</p>` : ''}
+          ${palestrante ? `<button class="modal-pessoa-btn" data-palestrante-id="${pessoa.palestrante_id}">Ver Currículo</button>` : ''}
         </div>
       </div>
     `;
   }
   
-  createAulaItemCompact(aula) {
+  createAulaItem(aula) {
     return `
-      <div class="modal-aula-item-compact">
-        <div class="modal-aula-time-compact">
-          ${Utils.formatTimeRange(aula.horario_inicio, aula.horario_fim)}
+      <div class="modal-aula-item">
+        <div class="modal-aula-time">
+          <span>${Utils.formatTimeRange(aula.horario_inicio, aula.horario_fim)}</span>
         </div>
-        <div class="modal-aula-content-compact">
-          <h4 class="modal-aula-titulo-compact">${aula.titulo}</h4>
-          <div class="modal-aula-palestrante-compact">
-            <img src="${aula.palestrante_foto}" alt="${aula.palestrante_nome}" class="modal-aula-foto-compact">
-            <span class="modal-aula-nome-compact">${aula.palestrante_nome}</span>
-            <button class="modal-aula-btn-compact" data-palestrante-id="${aula.palestrante_id}">Ver Currículo</button>
+        <div class="modal-aula-content">
+          <h4 class="modal-aula-titulo">${aula.titulo}</h4>
+          <div class="modal-aula-palestrante" data-palestrante-id="${aula.palestrante_id}">
+            <img src="${aula.palestrante_foto}" alt="${aula.palestrante_nome}" class="modal-aula-foto">
+            <span class="modal-aula-nome">${aula.palestrante_nome}</span>
+            <button class="modal-aula-btn" data-palestrante-id="${aula.palestrante_id}">Ver Currículo</button>
           </div>
         </div>
       </div>
