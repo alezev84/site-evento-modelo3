@@ -350,7 +350,6 @@ class ProgramacaoManager {
             <span class="modal-time">⏰ ${Utils.formatTimeRange(sessao.horario_inicio, sessao.horario_fim)}</span>
             <span class="modal-room">📍 ${sessao.sala}</span>
           </div>
-          ${sessao.descricao ? `<p class="modal-description">${sessao.descricao}</p>` : ''}
         </div>
     `;
     
