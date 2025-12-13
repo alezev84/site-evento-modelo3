@@ -1,689 +1,456 @@
-/* ===================================
-   PROGRAMACAO PAGE - STYLES
-   =================================== */
-
-/* Importa base styles (se necessário) */
-
-/* ===================================
-   PAGE HERO
-   =================================== */
-.page-hero {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: var(--white);
-  padding: var(--spacing-xl) var(--spacing-sm);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.page-hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-  background-size: 30px 30px;
-  opacity: 0.3;
-}
-
-.page-hero-content {
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
-
-.page-hero h1 {
-  font-family: var(--font-heading);
-  font-size: 3rem;
-  margin-bottom: var(--spacing-sm);
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.page-hero p {
-  font-size: 1.2rem;
-  opacity: 0.95;
-  line-height: 1.6;
-}
-
-/* ===================================
-   FILTERS SECTION
-   =================================== */
-.filters-section {
-    background: var(--white);
-    padding: 10px;
-    box-shadow: var(--shadow-sm);
-    position: sticky;
-    top: 36px;
-    z-index: 90;
-    margin: 0;
-}
-
-.filters-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.search-box {
-    width: 50%;
-    margin: 5px auto;
-    position: relative;
-    box-shadow: var(--shadow-lg);
-    border-radius: 25px;
-}
-
-.search-input {
-  width: 100%;
-  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 50px;
-  border: 2px solid var(--bg-light);
-  border-radius: 50px;
-  font-size: 1rem;
-  transition: var(--transition-fast);
-  font-family: inherit;
-}
-
-.search-input:focus {
-  outline: none;
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
-}
-
-.search-icon {
-  position: absolute;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1.2rem;
-  pointer-events: none;
-}
-
-.filter-groups {
-  display: flex;
-  gap: var(--spacing-lg);
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.filter-group {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  flex-wrap: wrap;
-}
-
-.filter-label {
-  font-weight: 600;
-  color: var(--text-dark);
-  font-size: 0.95rem;
-  white-space: nowrap;
-}
-
-.filter-buttons {
-  display: flex;
-  gap: var(--spacing-xs);
-  flex-wrap: wrap;
-}
-
-.day-filter,
-.type-filter {
-  padding: var(--spacing-xs) var(--spacing-md);
-  border: 2px solid var(--primary-color);
-  background: var(--white);
-  color: var(--primary-color);
-  border-radius: 50px;
-  font-weight: 500;
-  font-size: 0.9rem;
-  transition: var(--transition-fast);
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.day-filter:hover,
-.type-filter:hover {
-  background: var(--bg-light);
-}
-
-.day-filter.active,
-.type-filter.active {
-  background: var(--primary-color);
-  color: var(--white);
-  box-shadow: var(--shadow-sm);
-}
-
-/* ===================================
-   PROGRAMACAO SECTION
-   =================================== */
-.programacao-section {
-  padding: var(--spacing-xl) var(--spacing-sm);
-  background: var(--bg-light);
-}
-
-.programacao-container {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-/* ===================================
-   DAY GROUP
-   =================================== */
-.day-group {
-  margin-bottom: var(--spacing-xl);
-}
-
-.day-title {
-  font-family: var(--font-heading);
-  font-size: 2rem;
-  color: var(--primary-color);
-  margin-bottom: var(--spacing-lg);
-  padding-bottom: var(--spacing-sm);
-  border-bottom: 3px solid var(--accent-color);
-}
-
-.sessoes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: var(--spacing-lg);
-}
-
-/* ===================================
-   SESSAO CARD (NOVO - Compacto)
-   =================================== */
-.sessao-card {
-  background: var(--white);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-  transition: var(--transition-normal);
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  max-width: 380px; /* 50% menor no desktop */
-  margin: 0 auto;
-}
-
-.sessao-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
-}
-
-.sessao-header-badge {
-  padding: var(--spacing-md);
-  color: var(--white);
-  font-weight: 700;
-  font-size: 1.1rem;
-  line-height: 1.3;
-  text-align: center;
-  min-height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Type badge colors */
-.sessao-header-badge.keynote { background: linear-gradient(135deg, #e91e63, #c2185b); }
-.sessao-header-badge.roundtable { background: linear-gradient(135deg, #2196f3, #1976d2); }
-.sessao-header-badge.symposium { background: linear-gradient(135deg, #9c27b0, #7b1fa2); }
-.sessao-header-badge.workshop { background: linear-gradient(135deg, #ff9800, #f57c00); }
-.sessao-header-badge.conference { background: linear-gradient(135deg, #4caf50, #388e3c); }
-.sessao-header-badge.break { background: linear-gradient(135deg, #607d8b, #455a64); }
-.sessao-header-badge.lunch { background: linear-gradient(135deg, #795548, #5d4037); }
-
-.sessao-content {
-  padding: var(--spacing-md);
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
-}
-
-.sessao-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding-bottom: var(--spacing-sm);
-  border-bottom: 1px solid var(--bg-light);
-}
-
-.sessao-time,
-.sessao-room {
-  font-size: 0.9rem;
-  color: var(--text-light);
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.sessao-speakers {
-  font-size: 0.95rem;
-  color: var(--text-dark);
-  line-height: 1.5;
-  flex: 1;
-  margin: var(--spacing-xs) 0;
-}
-
-.sessao-btn-inline {
-  background: var(--primary-color);
-  color: var(--white);
-  padding: var(--spacing-xs) var(--spacing-md);
-  border: none;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition-fast);
-  align-self: center;
-  width: 100%;
-}
-
-.sessao-btn-inline:hover {
-  background: var(--secondary-color);
-  transform: translateY(-2px);
-}
-
-/* ===================================
-   MODAL STYLES (Sessão)
-   =================================== */
-.modal-sessao {
-  max-width: 100%;
-}
-
-.modal-header {
-  border-bottom: 2px solid var(--bg-light);
-}
-
-.modal-type-badge {
-  display: inline-block;
-  padding: 6px var(--spacing-md);
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--white);
-  margin-bottom: var(--spacing-sm);
-}
-
-.modal-type-badge.keynote { background: linear-gradient(135deg, #e91e63, #c2185b); }
-.modal-type-badge.roundtable { background: linear-gradient(135deg, #2196f3, #1976d2); }
-.modal-type-badge.symposium { background: linear-gradient(135deg, #9c27b0, #7b1fa2); }
-.modal-type-badge.workshop { background: linear-gradient(135deg, #ff9800, #f57c00); }
-.modal-type-badge.conference { background: linear-gradient(135deg, #4caf50, #388e3c); }
-
-.modal-title {
-  font-family: var(--font-heading);
-  font-size: 2rem;
-  color: var(--primary-color);
-  line-height: 1.3;
-}
-
-.modal-meta {
-  display: flex;
-  gap: var(--spacing-md);
-  flex-wrap: wrap;
-  font-size: 0.95rem;
-  color: var(--text-light);
-}
-
-.modal-meta span {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.modal-description {
-  font-size: 1.05rem;
-  color: var(--text-light);
-  line-height: 1.8;
-}
-
-.modal-section {
-  margin-top: var(--spacing-md);
-  border-top: 2px solid var(--bg-light);
-}
-
-.modal-section-title {
-  font-size: 1.4rem;
-  color: var(--primary-color);
-  font-weight: 600;
-}
-
-/* ===================================
-   MODAL - Pessoas Grid (Moderadores, Debatedores)
-   =================================== */
-.modal-pessoas-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--spacing-md);
-}
-
-.modal-pessoa-card {
-  background: var(--bg-light);
-  border-radius: 12px;
-  padding: var(--spacing-sm);
-  text-align: center;
-  transition: var(--transition-fast);
-  box-shadow: var(--shadow-lg);
-
-}
-
-.modal-pessoa-card:hover {
-  background: #e8f4f8;
-  transform: translateY(-4px);
-}
-
-.modal-pessoa-foto {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: top;
-  margin: 0 auto var(--spacing-sm);
-  border: 3px solid var(--white);
-  box-shadow: var(--shadow-md);
-}
-
-.modal-pessoa-nome {
-  font-size: 1rem;
-  color: var(--primary-color);
-  font-weight: 600;
-  margin-bottom: 4px;
-  line-height: 1.3;
-}
-
-.modal-pessoa-instituicao {
-  font-size: 0.85rem;
-  color: var(--text-light);
-  margin-bottom: var(--spacing-sm);
-  line-height: 1.4;
-}
-
-.modal-pessoa-btn {
-  background: var(--accent-color);
-  color: var(--white);
-  border: none;
-  padding: 6px var(--spacing-sm);
-  border-radius: 6px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition-fast);
-}
-
-.modal-pessoa-btn:hover {
-  background: var(--primary-color);
-  transform: scale(1.05);
-}
-
-/* ===================================
-   MODAL - Aulas/Apresentações
-   =================================== */
-.modal-aulas {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-}
-
-.modal-aula-item {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-sm);
-  background: var(--bg-light);
-  border-radius: 12px;
-  border-left: 4px solid var(--accent-color);
-  transition: var(--transition-fast);
-  box-shadow: var(--shadow-lg);
-
-}
-
-.modal-aula-item:hover {
-  background: #e8f4f8;
-  border-left-color: var(--primary-color);
-  transform: translateY(-4px);
-}
-
-.modal-aula-time {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--white);
-  border-radius: 8px;
-  font-weight: 600;
-  color: var(--primary-color);
-  font-size: 0.95rem;
-  text-align: center;
-}
-
-.modal-aula-content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
-}
-
-.modal-aula-titulo {
-  font-size: 1.1rem;
-  color: var(--text-dark);
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-.modal-aula-palestrante {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-}
-
-.modal-aula-foto {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: top;
-  border: 2px solid var(--white);
-  box-shadow: var(--shadow-sm);
-}
-
-.modal-aula-nome {
-  flex: 1;
-  font-size: 0.95rem;
-  color: var(--text-light);
-  font-weight: 500;
-}
-
-.modal-aula-btn {
-  background: var(--primary-color);
-  color: var(--white);
-  border: none;
-  padding: 6px var(--spacing-sm);
-  border-radius: 6px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition-fast);
-  white-space: nowrap;
-}
-
-.modal-aula-btn:hover {
-  background: var(--secondary-color);
-  transform: scale(1.05);
-}
-
-/* ===================================
-   MODAL - Palestrante (Bio completa)
-   =================================== */
-.modal-palestrante {
-  max-width: 100%;
-}
-
-.modal-palestrante-header {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-sm);
-  border-bottom: 2px solid var(--bg-light);
-}
-
-.modal-palestrante-foto {
-  width: 200px;
-  height: 250px;
-  border-radius: 12px;
-  object-fit: cover;
-  object-position: top;
-  box-shadow: var(--shadow-md);
-}
-
-.modal-palestrante-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: var(--spacing-sm);
-}
-
-.modal-palestrante-nome {
-  font-family: var(--font-heading);
-  font-size: 2rem;
-  color: var(--primary-color);
-  line-height: 1.2;
-  margin: 0;
-}
-
-.modal-palestrante-instituicao {
-  font-size: 1.1rem;
-  color: var(--text-dark);
-  font-weight: 600;
-  margin: 0;
-}
-
-.modal-palestrante-especialidade {
-  display: inline-block;
-  background: var(--accent-color);
-  color: var(--white);
-  padding: 6px var(--spacing-md);
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  align-self: flex-start;
-}
-
-.modal-palestrante-local {
-  font-size: 0.95rem;
-  color: var(--text-light);
-  margin: 0;
-}
-
-.modal-palestrante-body h3 {
-  font-size: 1.4rem;
-  color: var(--primary-color);
-}
-
-.modal-palestrante-cv {
-  font-size: 1rem;
-  color: var(--text-light);
-  line-height: 1.8;
-  white-space: pre-line;
-}
-
-/* ===================================
-   RESPONSIVE
-   =================================== */
-@media (max-width: 768px) {
-  .page-hero h1 {
-    font-size: 2rem;
-  }
-  
-  .page-hero p {
-    font-size: 1rem;
-  }
-  
-  .filters-section {
-    position: static;
-  }
-  
-    .search-box {
-        width: 100%;
-    }
-  
-  .filter-groups {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--spacing-md);
-  }
-  
-  .filter-group {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .filter-buttons {
-    width: 100%;
-  }
-  
-  .day-filter,
-  .type-filter {
-    flex: 1;
-    text-align: center;
-  }
-  
-  .sessoes-grid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-md);
-  }
-  
-  .day-title {
-    font-size: 1.6rem;
-  }
-  
-  .modal-title {
-    font-size: 1.5rem;
-  }
-  
-  .modal-pessoas-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .modal-aula-item {
-    grid-template-columns: 1fr;
-  }
-  
-  .modal-aula-time {
-    justify-content: flex-start;
-  }
-  
-  .modal-palestrante-header {
-    grid-template-columns: 1fr;
-  }
-  
-  .modal-palestrante-foto {
-    width: 100%;
-    max-width: 250px;
-    margin: 0 auto;
-  }
-  
-  .modal-palestrante-nome {
-    font-size: 1.6rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .sessao-title {
-    font-size: 1.1rem;
-  }
-  
-  .modal-palestrante-nome {
-    font-size: 1.4rem;
-  }
-}
-
-
-
-
-
-
-
-
-
+        /* ============================================ */
+        /* RESET & VARIÁVEIS */
+        /* ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #164b80;
+            --accent-color: #3498db;
+            --bg-color: #f4f6f9;
+            --card-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            --card-shadow-hover: 0 4px 12px rgba(0,0,0,0.12);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ============================================ */
+        /* CONTAINER */
+        /* ============================================ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 15px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--primary-color);
+            margin: 20px 0 40px;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        /* ============================================ */
+        /* NAVEGAÇÃO DE DIAS */
+        /* ============================================ */
+        .days-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .day-btn {
+            padding: 12px 24px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .day-btn:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .day-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* ============================================ */
+        /* FILTROS */
+        /* ============================================ */
+        .filters-container {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 14px 20px 14px 48px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: 16px center;
+        }
+
+        #search-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        /* ============================================ */
+        /* AGRUPAMENTO POR SALA */
+        /* ============================================ */
+        .room-group {
+            background: white;
+            padding: 24px;
+            margin-bottom: 32px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .room-title {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sessions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* ============================================ */
+        /* SESSION CARD */
+        /* ============================================ */
+        .session-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 20px;
+            border-left: 5px solid var(--accent-color);
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .session-card:hover {
+            transform: translateX(4px);
+            box-shadow: var(--card-shadow-hover);
+            border-left-color: var(--primary-color);
+        }
+
+        .session-content {
+            flex: 1;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            color: var(--accent-color);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .session-content h4 {
+            margin: 10px 0;
+            color: var(--primary-color);
+            font-size: 1.15rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .session-content p {
+            margin: 8px 0;
+            color: #666;
+            font-size: 0.92rem;
+        }
+
+        .btn-details {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .btn-details:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        /* ============================================ */
+        /* MODAIS */
+        /* ============================================ */
+        dialog {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 0;
+            max-width: 650px;
+            width: 90%;
+        }
+
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-wrapper {
+            padding: 0;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            padding: 24px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .btn-close {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 4px 12px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .btn-close:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .modal-body {
+            padding: 24px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .modal-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .modal-list li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .modal-list strong {
+            color: var(--primary-color);
+        }
+
+        /* NOVO: Box para Integrantes da Mesa */
+        .mesa-integrantes-box {
+            background: #f8f9fa;
+            border-left: 4px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .mesa-integrantes-box h5 {
+            color: var(--primary-color);
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+        }
+
+        .mesa-integrantes-box em {
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: normal;
+        }
+
+        .speaker-name-btn {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            cursor: pointer;
+            font-weight: 600;
+            padding: 0;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .speaker-name-btn:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        .timeline {
+            margin-top: 20px;
+        }
+
+        .timeline-item {
+            padding: 16px;
+            margin-bottom: 12px;
+            background: #f8f9fa;
+            border-left: 3px solid var(--accent-color);
+            border-radius: 6px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item strong {
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        /* ============================================ */
+        /* MODAL DE PALESTRANTE (STACKABLE) */
+        /* ============================================ */
+        .speaker-modal-dialog {
+            max-width: 600px;
+            z-index: 1100;
+        }
+
+        .speaker-modal-dialog::backdrop {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .speaker-profile {
+            text-align: center;
+            padding: 32px 24px;
+        }
+
+        .speaker-profile img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: top;
+            margin-bottom: 20px;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .speaker-profile h3 {
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            font-size: 1.4rem;
+        }
+
+        .speaker-profile p:not(.speaker-curriculum) {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .speaker-curriculum {
+            text-align: left;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        /* ============================================ */
+        /* EMPTY STATE */
+        /* ============================================ */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+            font-size: 1.1rem;
+        }
+
+        /* ============================================ */
+        /* RESPONSIVO */
+        /* ============================================ */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .session-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .btn-details {
+                width: 100%;
+            }
+
+            .day-btn {
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+
+            .room-title {
+                font-size: 1.2rem;
+            }
+
+            dialog {
+                width: 95%;
+            }
+
+            .modal-body {
+                max-height: 50vh;
+            }
+        }
