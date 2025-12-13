@@ -52,12 +52,13 @@
    FILTERS SECTION
    =================================== */
 .filters-section {
-  background: var(--white);
-  padding: var(--spacing-lg) var(--spacing-sm);
-  box-shadow: var(--shadow-sm);
-  position: sticky;
-  top: 60px;
-  z-index: 90;
+    background: var(--white);
+    padding: 10px;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 36px;
+    z-index: 90;
+    margin: 0;
 }
 
 .filters-container {
@@ -67,7 +68,7 @@
 
 .search-box {
   max-width: 600px;
-  margin: 0 auto var(--spacing-md);
+  margin: 0 auto;
   position: relative;
 }
 
@@ -676,3 +677,4 @@
     font-size: 1.4rem;
   }
 }
+
