@@ -293,8 +293,6 @@
 }
 
 .modal-header {
-  margin-bottom: var(--spacing-lg);
-  padding-bottom: var(--spacing-md);
   border-bottom: 2px solid var(--bg-light);
 }
 
@@ -320,7 +318,6 @@
   font-family: var(--font-heading);
   font-size: 2rem;
   color: var(--primary-color);
-  margin-bottom: var(--spacing-md);
   line-height: 1.3;
 }
 
@@ -328,7 +325,6 @@
   display: flex;
   gap: var(--spacing-md);
   flex-wrap: wrap;
-  margin-bottom: var(--spacing-sm);
   font-size: 0.95rem;
   color: var(--text-light);
 }
@@ -343,12 +339,10 @@
   font-size: 1.05rem;
   color: var(--text-light);
   line-height: 1.8;
-  margin-top: var(--spacing-sm);
 }
 
 .modal-section {
-  margin-top: var(--spacing-lg);
-  padding-top: var(--spacing-lg);
+  margin-top: var(--spacing-md);
   border-top: 2px solid var(--bg-light);
 }
 
@@ -682,6 +676,7 @@
     font-size: 1.4rem;
   }
 }
+
 
 
 
