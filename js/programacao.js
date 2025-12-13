@@ -459,8 +459,6 @@ class ProgramacaoManager {
           <img src="${palestrante.foto}" alt="${palestrante.nome}" class="modal-palestrante-foto">
           <div class="modal-palestrante-info">
             <h2 class="modal-palestrante-nome">${palestrante.nome}</h2>
-            <p class="modal-palestrante-instituicao">${palestrante.instituicao}</p>
-            <span class="modal-palestrante-especialidade">${palestrante.especialidade}</span>
             <p class="modal-palestrante-local">📍 ${palestrante.cidade}, ${palestrante.estado} - ${palestrante.pais}</p>
           </div>
         </div>
