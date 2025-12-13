@@ -303,7 +303,7 @@
     // FETCH DO JSON
     // ============================================
     document.addEventListener('DOMContentLoaded', () => {
-        fetch('./programacao.json')
+        fetch('./data/programacao.json')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Erro ao carregar programacao.json');
