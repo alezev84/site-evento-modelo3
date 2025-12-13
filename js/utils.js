@@ -1,7 +1,10 @@
+// ========================================
 // UTILS.JS - Funções Compartilhadas
+// ========================================
 
+// ========================================
 // MODAL SYSTEM (Universal) - COM SUPORTE A STACK
-
+// ========================================
 class Modal {
   constructor() {
     this.modals = []; // Stack de modais
