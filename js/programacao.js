@@ -355,16 +355,13 @@ class ProgramacaoManager {
     `;
     
     // Moderadores
-    if (sessao.moderadores && sessao.moderadores.length > 0), (sessao.debatedores && sessao.debatedores.length > 0), (sessao.nucleo_jovem && sessao.nucleo_jovem.length > 0) {
+    if (sessao.moderadores && sessao.moderadores.length > 0) {
       html += `
         <div class="modal-section">
-          <h3 class="modal-section-title">Moderação e Debatedores</h3>
-          <ul class="modal-pessoas-grid">
-            ${sessao.moderadores.map(mod => this.createPessoaCard(mod, 'moderador')).join('')
-            ${sessao.debatedores.map(deb => this.createPessoaCard(deb, 'debatedor')).join('')
-            ${sessao.nucleo_jovem.map(nj => this.createPessoaCard(nj, 'nucleo-jovem')).join('')
-            }
-          </ul>
+          <h3 class="modal-section-title">Moderação</h3>
+          <div class="modal-pessoas-grid">
+            ${sessao.moderadores.map(mod => this.createPessoaCard(mod, 'moderador')).join('')}
+          </div>
         </div>
       `;
     }
