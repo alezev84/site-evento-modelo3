@@ -351,7 +351,6 @@
 .modal-section-title {
   font-size: 1.4rem;
   color: var(--primary-color);
-  margin-bottom: var(--spacing-md);
   font-weight: 600;
 }
 
@@ -367,9 +366,11 @@
 .modal-pessoa-card {
   background: var(--bg-light);
   border-radius: 12px;
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm);
   text-align: center;
   transition: var(--transition-fast);
+  box-shadow: var(--shadow-lg);
+
 }
 
 .modal-pessoa-card:hover {
@@ -382,9 +383,10 @@
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
+  object-position: top;
   margin: 0 auto var(--spacing-sm);
   border: 3px solid var(--white);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
 }
 
 .modal-pessoa-nome {
@@ -432,11 +434,13 @@
   display: grid;
   grid-template-columns: 120px 1fr;
   gap: var(--spacing-md);
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm);
   background: var(--bg-light);
   border-radius: 12px;
   border-left: 4px solid var(--accent-color);
   transition: var(--transition-fast);
+  box-shadow: var(--shadow-lg);
+
 }
 
 .modal-aula-item:hover {
@@ -677,4 +681,5 @@
     font-size: 1.4rem;
   }
 }
+
 
