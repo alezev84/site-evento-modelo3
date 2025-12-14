@@ -48,8 +48,7 @@
       background: var(--white);
       padding: 24px;
       box-shadow: var(--shadow-sm);
-      position: sticky;
-      top: 60px;
+      top: 36px;
       z-index: 90;
       margin-bottom: 32px;
     }
@@ -322,3 +321,4 @@
         grid-template-columns: 1fr;
       }
     }
+
