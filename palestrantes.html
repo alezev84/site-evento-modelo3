@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Conheça os palestrantes nacionais e internacionais do Congresso Nacional de Medicina 2025">
+  <meta name="description" content="Conheça os palestrantes do Congresso Nacional de Medicina 2025">
   <title>Palestrantes - Congresso Médico 2025</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="palestrantes.css">
@@ -41,65 +41,32 @@
   <section class="page-hero">
     <div class="page-hero-content">
       <h1>Palestrantes</h1>
-      <p>Conheça os renomados especialistas nacionais e internacionais que compartilharão seus conhecimentos e experiências no maior evento médico do ano.</p>
+      <p>Conheça os principais especialistas que compartilharão conhecimento no evento.</p>
     </div>
   </section>
 
-  <!-- FILTERS & SEARCH -->
-  <section class="filters-section">
-    <div class="filters-container">
-      
-      <!-- Search Box -->
-      <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <input 
-          type="text" 
-          id="searchInput" 
-          class="search-input" 
-          placeholder="Buscar palestrante..."
-          aria-label="Buscar palestrante"
-        >
-      </div>
-
-      <!-- Filters -->
-      <div class="filter-group" role="group" aria-label="Filtros de especialidade">
-        <button class="filter-btn active" data-filter="todos">Todos</button>
-        <button class="filter-btn" data-filter="Cardiologia">Cardiologia</button>
-        <button class="filter-btn" data-filter="Oncologia">Oncologia</button>
-        <button class="filter-btn" data-filter="Neurologia">Neurologia</button>
-        <button class="filter-btn" data-filter="Mastologia">Mastologia</button>
-        <button class="filter-btn" data-filter="Genética">Genética</button>
-      </div>
-
-      <!-- Results Count -->
-      <div class="results-count" id="resultsCount">
-        Carregando...
-      </div>
-
+  <!-- SEARCH SECTION -->
+  <section class="search-section">
+    <div class="search-container">
+      <span class="search-icon">🔍</span>
+      <input 
+        type="text" 
+        id="searchPalestrantes" 
+        class="search-input" 
+        placeholder="Buscar palestrante por nome ou instituição..."
+        aria-label="Buscar palestrantes"
+      >
     </div>
   </section>
 
-  <!-- SPEAKERS SECTION -->
-  <section class="speakers-section">
-    
-    <!-- Speakers Grid (populado via JS) -->
-    <div class="speakers-grid" id="speakersGrid">
-      <!-- Cards serão inseridos aqui via JavaScript -->
+  <!-- PALESTRANTES SECTION -->
+  <section class="palestrantes-section">
+    <div class="palestrantes-container">
+      <div class="palestrantes-stats" id="palestrantesStats"></div>
+      <div id="palestrantesGrid" class="palestrantes-grid">
+        <!-- Cards serão inseridos aqui via JavaScript -->
+      </div>
     </div>
-
-    <!-- Pagination -->
-    <div class="pagination" id="pagination" style="display: none;">
-      <button class="pagination-btn" id="firstPageBtn" aria-label="Primeira página">««</button>
-      <button class="pagination-btn" id="prevPageBtn" aria-label="Página anterior">‹</button>
-      
-      <div id="pageNumbers"></div>
-      
-      <button class="pagination-btn" id="nextPageBtn" aria-label="Próxima página">›</button>
-      <button class="pagination-btn" id="lastPageBtn" aria-label="Última página">»»</button>
-      
-      <span class="pagination-info" id="paginationInfo"></span>
-    </div>
-
   </section>
 
   <!-- FOOTER -->
@@ -112,7 +79,6 @@
 
   <!-- Scripts -->
   <script src="script.js"></script>
-  <script src="js/utils.js"></script>
-  <script src="js/palestrantes.js"></script>
+  <script src="./js/palestrantes.js"></script>
 </body>
 </html>
