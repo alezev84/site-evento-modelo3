@@ -350,7 +350,6 @@ class ProgramacaoManager {
     let html = `
       <div class="modal-sessao">
         <div class="modal-header">
-          <span class="modal-type-badge ${sessao.tipo.toLowerCase().replace(/\s+/g, '-')}">${typeLabel}</span>
           <h2 class="modal-title">${sessao.titulo}</h2>
           <div class="modal-meta">
             <span class="modal-date">📅 ${sessao.dia_data} - ${sessao.dia_semana}</span>
