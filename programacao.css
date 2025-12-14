@@ -212,6 +212,7 @@
 
 .sessao-header-badge {
   padding: var(--spacing-md);
+  background-color: var(--primary-color);
   color: var(--white);
   font-weight: 700;
   font-size: 1.1rem;
@@ -678,3 +679,4 @@
     font-size: 1.4rem;
   }
 }
+
