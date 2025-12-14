@@ -154,8 +154,7 @@
             <div class="palestrante-content">
               <h3 class="palestrante-nome">${palestrante.nome}</h3>
               <p class="palestrante-instituicao">${instituicao}</p>
-              <p class="palestrante-bio">${this.truncate(bio, 120)}</p>
-              <button class="palestrante-btn">Ver Currículo Completo</button>
+              <button class="palestrante-btn">Ver Currículo...</button>
             </div>
           </article>
         `;
