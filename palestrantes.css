@@ -115,7 +115,7 @@
       background: var(--white);
       border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      box-shadow: var(--shadow-lg);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
       display: flex;
@@ -124,7 +124,7 @@
 
     .palestrante-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+      box-shadow: var(--shadow-md);
     }
 
     .palestrante-foto-wrapper {
@@ -321,4 +321,5 @@
         grid-template-columns: 1fr;
       }
     }
+
 
